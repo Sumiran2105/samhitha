@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import heroVideo from "../../assets/videos/hero.mp4";
+import heroVideo from "../../assets/videos/Hero.mp4";
 
 const MotionDiv = motion.div;
 
