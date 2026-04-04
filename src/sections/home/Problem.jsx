@@ -80,26 +80,44 @@ const Problem = () => {
         viewport={{ once: true, amount: 0.15 }}
       >
         <MotionDiv
-          className="mx-auto max-w-3xl text-center"
-          variants={sectionFade}
+          className="mx-auto max-w-4xl text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.15 } }
+          }}
         >
-          <div className="mb-4 inline-flex items-center rounded-full border border-emerald-200 bg-white/80 px-4 py-2 text-sm font-medium text-emerald-700 shadow-sm backdrop-blur">
-            The Problem
-          </div>
+          <motion.div variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1, transition: { type: "spring", bounce: 0.5 } } }}>
+            <div className="mb-6 inline-flex items-center rounded-full border border-emerald-200 bg-white/80 px-4 py-2 text-sm font-bold tracking-widest uppercase text-emerald-700 shadow-sm backdrop-blur">
+              The Problem
+            </div>
+          </motion.div>
 
           <h2 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl">
-            Knee Problems Rarely Begin With A Crisis.
-            <span className="mt-2 block text-emerald-700">
-              They Build Quietly Until Everyday Life Feels Smaller.
-            </span>
+
+            <motion.span
+              variants={{ hidden: { opacity: 0, x: -40, filter: "blur(5px)" }, visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { type: "spring", damping: 12 } } }}
+            >
+              Don't Let A Small Ache
+            </motion.span>
+            <motion.span
+              variants={{ hidden: { opacity: 0, scale: 0.6, rotate: -2 }, visible: { opacity: 1, scale: 1, rotate: 0, transition: { type: "spring", stiffness: 100, damping: 10, delay: 0.1 } } }}
+              className="mt-2 text-emerald-600 drop-shadow-sm"
+            >
+              Become A Major Surgery.
+            </motion.span>
           </h2>
 
-          <p className="mt-5 text-sm leading-relaxed text-gray-600 sm:text-base md:text-lg">
+          <motion.p
+            variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
+            className="mt-8 text-base leading-relaxed text-gray-600 sm:text-lg md:text-xl font-medium max-w-3xl mx-auto"
+          >
             Most people do not ignore their knees because they do not care. They
             delay action because the early signs seem manageable, temporary, or
             easy to live with. That delay is exactly what allows pain, stiffness,
             and cartilage stress to become a much bigger problem later.
-          </p>
+          </motion.p>
         </MotionDiv>
 
         <div className="mt-12 grid gap-5 sm:mt-16 sm:grid-cols-2 xl:grid-cols-4">

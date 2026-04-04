@@ -1,15 +1,17 @@
+import Grading from "../sections/home/Grading";
 import Hero from "../sections/home/Hero";
 import HowItWorks from "../sections/home/HowItWorks";
-import Problem from "../sections/home/Problem";
-import Solution from "../sections/home/Solution";
+import WhatYouGet from "../sections/home/WhatYouGet";
+import Testimonials from "../sections/home/Testimonials";
 
 const Home = () => {
   return (
     <>
       <Hero />
-      <Problem />
-      <Solution />
+      <Testimonials />
       <HowItWorks />
+      <Grading />
+      <WhatYouGet />
     </>
   );
 };

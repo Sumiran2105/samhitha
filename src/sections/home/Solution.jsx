@@ -1,136 +1,122 @@
 import { motion } from "framer-motion";
-import { Activity, Apple, Leaf, Stethoscope } from "lucide-react";
-
-const MotionDiv = motion.div;
-const MotionArticle = motion.article;
-
-const sectionFade = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.65, ease: "easeOut" },
-  },
-};
-
-const cardReveal = {
-  hidden: { opacity: 0, y: 26 },
-  visible: (index) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.55,
-      delay: index * 0.12,
-      ease: "easeOut",
-    },
-  }),
-};
+import TreatmentImage from "../../assets/images/Nature.jpeg";
 
 const solutions = [
   {
-    icon: <Leaf size={20} />,
-    label: "Natural Healing",
-    title: "Ayurveda Support",
+    step: "01",
+    title: "AYURVEDA SUPPORT",
     desc: "Natural therapies designed to reduce inflammation and improve long-term joint comfort.",
+    offsetClasses: "mt-0",
   },
   {
-    icon: <Apple size={20} />,
-    label: "Recovery Fuel",
-    title: "Nutrition",
+    step: "02",
+    title: "CLINICAL NUTRITION",
     desc: "Targeted nutrition plans to support cartilage repair and overall joint health.",
+    offsetClasses: "lg:mt-32",
   },
   {
-    icon: <Activity size={20} />,
-    label: "Movement Therapy",
-    title: "Physiotherapy",
+    step: "03",
+    title: "PHYSIOTHERAPY",
     desc: "Guided exercises to restore strength, mobility, and stability in your knee.",
+    offsetClasses: "lg:-mt-8",
   },
   {
-    icon: <Stethoscope size={20} />,
-    label: "Clinical Guidance",
-    title: "Expert Orthopaedic Care",
-    desc: "Doctor-led guidance to monitor progress and prevent the need for surgery.",
+    step: "04",
+    title: "EXPERT GUIDANCE",
+    desc: "Doctor-led care to monitor progress and prevent the need for surgery.",
+    offsetClasses: "lg:mt-20",
   },
 ];
 
 const Solution = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white to-emerald-50 pb-14 pt-14 md:pb-16 md:pt-16">
-      <MotionDiv
-        className="absolute right-0 top-24 h-44 w-44 rounded-full bg-emerald-100/50 blur-3xl md:h-64 md:w-64"
-        initial={{ opacity: 0, scale: 0.85 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      />
-      <MotionDiv
-        className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
-      >
-        <MotionDiv className="mx-auto max-w-3xl text-center" variants={sectionFade}>
-          <div className="mb-4 inline-flex items-center rounded-full border border-emerald-200 bg-white/80 px-4 py-2 text-sm font-medium text-emerald-700 shadow-sm backdrop-blur">
-            The Solution
-          </div>
+    <section className="relative overflow-hidden bg-white py-24 md:py-32 lg:pb-56">
 
-          <h2 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl">
-            A Smarter Recovery System.
-            <span className="mt-2 block text-emerald-700">
-              Built To Reduce Pain Early And Protect The Joint Long Term.
-            </span>
+      {/* Background Image Setup mimicking the reference "Design Process" layout */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <img
+          src={TreatmentImage}
+          alt="Medical setting"
+          className="w-full h-full object-cover object-top opacity-30 contrast-125 grayscale-[10%]"
+        />
+        {/* Soft gradient wash to make white cards pop perfectly */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-emerald-50/40 to-white/95"></div>
+      </div>
+
+      {/* Decorative Dashed Looping Line - Similar to reference image */}
+      <div className="absolute inset-0 z-0 hidden lg:block opacity-50 pointer-events-none">
+        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <motion.path
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 3, ease: "easeInOut", delay: 0.5 }}
+            d="M -5 30 Q 20 -20 40 50 T 70 30 Q 90 100 105 40"
+            fill="none"
+            stroke="#10b981"
+            strokeWidth="0.2"
+            strokeDasharray="1 1"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-16 lg:mb-24"
+        >
+          <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-emerald-800 mb-3">
+            Samhitha Solution Process
           </h2>
+          <h3 className="text-4xl md:text-5xl lg:text-7xl font-black text-gray-900 tracking-tight leading-[1.05] max-w-3xl">
+            A Smarter System For <span className="text-emerald-700 block">Joint Preservation.</span>
+          </h3>
+        </motion.div>
 
-          <p className="mt-5 text-sm leading-relaxed text-gray-600 sm:text-base md:text-lg">
-            Samhitha combines guided assessment, movement therapy, nutrition,
-            and expert supervision into one connected program. Instead of
-            chasing symptoms one by one, each step supports the next so
-            recovery feels structured, measurable, and easier to sustain.
-          </p>
-        </MotionDiv>
-
-        <div className="mt-12 grid gap-5 sm:mt-16 md:grid-cols-2 xl:grid-cols-4">
+        {/* Staggered White Card Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {solutions.map((item, index) => (
-            <MotionArticle
-              key={item.title}
-              custom={index}
-              variants={cardReveal}
-              className="group relative overflow-hidden rounded-2xl border border-emerald-100 bg-white p-5 transition duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-emerald-100/70 sm:p-7"
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: index * 0.15, type: "spring", bounce: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 25px 50px -12px rgba(16, 185, 129, 0.15)",
+                transition: { duration: 0.3 }
+              }}
+              className={`bg-white/95 backdrop-blur-md rounded-[2rem] p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] border border-white/60 flex flex-col justify-between aspect-square min-h-[300px] hover:border-emerald-100 transition-colors ${item.offsetClasses} cursor-default relative group`}
             >
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-100/0 to-emerald-200/40 opacity-0 transition pointer-events-none group-hover:opacity-100" />
+              {/* Top Left Number Label */}
+              <span className="text-2xl md:text-3xl font-light text-gray-400 group-hover:text-emerald-600 transition-colors duration-300">
+                {item.step}
+              </span>
 
-              <div className="relative">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-sm font-semibold text-emerald-700">
-                  {item.icon}
-                </div>
-
-                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-700">
-                  {item.label}
-                </p>
-
-                <h3 className="mt-3 text-lg font-semibold leading-snug text-gray-900 sm:text-xl">
+              {/* Bottom Content Area */}
+              <div className="mt-auto">
+                <h4 className="text-lg md:text-xl font-bold text-gray-900 tracking-tight mb-4 group-hover:text-emerald-800 transition-colors duration-300">
                   {item.title}
-                </h3>
-
-                <p className="mt-4 text-sm leading-6 text-gray-600">
+                </h4>
+                <p className="text-sm text-gray-500 leading-relaxed font-medium">
                   {item.desc}
                 </p>
               </div>
-            </MotionArticle>
+
+              {/* Decorative hover gradient corner */}
+              <div className="absolute -bottom-1 -right-1 w-20 h-20 bg-emerald-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl rounded-full -z-10"></div>
+            </motion.div>
           ))}
         </div>
 
-        <MotionDiv
-          className="mx-auto mt-12 max-w-4xl rounded-3xl border border-emerald-100 bg-emerald-50/60 px-5 py-7 text-center sm:mt-14 sm:px-6 sm:py-8"
-          variants={sectionFade}
-        >
-          <p className="text-base font-semibold text-gray-900 sm:text-lg md:text-xl">
-            The goal is simple: help you act early, recover with confidence,
-            and stay farther away from avoidable surgery.
-          </p>
-        </MotionDiv>
-      </MotionDiv>
-
+      </div>
     </section>
   );
 };

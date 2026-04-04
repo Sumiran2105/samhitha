@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { Activity, ClipboardList, FileBarChart2, PlayCircle } from "lucide-react";
+import jointImage from "../../assets/images/Joint1.png";
 
 const MotionDiv = motion.div;
+const MotionImg = motion.img;
 
 const steps = [
   {
@@ -36,6 +38,16 @@ const HowItWorks = () => {
       id="how"
       className="relative overflow-hidden bg-gradient-to-b from-white to-emerald-50 pb-20 pt-14 md:pb-24 md:pt-16"
     >
+      <MotionImg
+        src={jointImage}
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-10 top-8 hidden w-40 -scale-x-100 -rotate-[10deg] opacity-75 md:block lg:w-52"
+        initial={{ opacity: 0, x: -24, y: -12, rotate: -16 }}
+        whileInView={{ opacity: 0.75, x: 0, y: 0, rotate: -10 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      />
       <MotionDiv
         className="absolute left-0 top-20 h-48 w-48 rounded-full bg-emerald-200/18 blur-3xl md:h-72 md:w-72"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -195,14 +207,62 @@ const HowItWorks = () => {
         </div>
 
         <MotionDiv
-          className="mx-auto mt-12 max-w-4xl rounded-3xl border border-emerald-100 bg-white/60 px-5 py-7 text-center backdrop-blur-sm sm:mt-14 sm:px-6 sm:py-8"
+          className="mx-auto mt-16 flex flex-col items-center justify-center text-center"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.65, ease: "easeOut" }}
         >
-          <p className="text-base font-semibold text-gray-900 sm:text-lg md:text-xl">
-            Clear steps. No confusion. Just a guided path from assessment to recovery.
+          <div className="flex justify-center relative">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative flex items-center gap-4 overflow-hidden rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 px-6 sm:px-8 py-3 sm:py-4 shadow-[0_0_40px_-10px_rgba(16,185,129,0.8)]"
+            >
+              {/* Outer medical ping radar rings */}
+              <motion.div
+                className="absolute inset-0 rounded-full border-2 border-emerald-400"
+                animate={{ scale: [1, 1.25, 1], opacity: [0.8, 0, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }}
+              />
+              <motion.div
+                className="absolute inset-0 rounded-full border-2 border-emerald-300"
+                animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0] }}
+                transition={{ duration: 2.5, delay: 0.5, repeat: Infinity, ease: "easeOut" }}
+              />
+              
+              {/* Glass shimmer sweep effect */}
+              <motion.div 
+                className="absolute inset-0 w-full -skew-x-[20deg]"
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)' }}
+                animate={{ x: ['-200%', '300%'] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+
+              {/* Heartbeat / Activity icon wrapper */}
+              <div className="relative z-10 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-white shadow-inner">
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity, times: [0, 0.2, 0.4, 0.6, 1], ease: "easeInOut" }}
+                >
+                  <Activity size={20} className="text-emerald-600 stroke-[3px]" />
+                </motion.div>
+              </div>
+
+              {/* Label */}
+              <span className="relative z-10 text-[13px] sm:text-[15px] font-bold uppercase tracking-wider text-white">
+                Take Assessment Now
+              </span>
+            </motion.button>
+          </div>
+
+          <p className="mt-5 flex items-center justify-center gap-2.5 text-sm font-medium tracking-wide text-gray-500">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </span>
+            Clear steps. No confusion. Just a guided path to recovery.
           </p>
         </MotionDiv>
       </div>
