@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <div className="min-h-screen bg-white text-slate-900">
       <Navbar />
-      <main className="w-full">
+      <main className="w-full overflow-x-hidden">
         <Outlet />
       </main>
       <Footer />

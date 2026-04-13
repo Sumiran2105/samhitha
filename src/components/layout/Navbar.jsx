@@ -39,7 +39,7 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-lg">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
         <Link to="/" className="text-xl font-semibold tracking-wide text-slate-900">
           <span>Sam</span>
           <span className="text-primary">hitha</span>
@@ -72,7 +72,7 @@ const Navbar = () => {
 
         <button
           type="button"
-          className="text-slate-900 md:hidden"
+          className="rounded-xl p-2 text-slate-900 transition hover:bg-emerald-50 md:hidden"
           onClick={() => setIsOpen((open) => !open)}
           aria-expanded={isOpen}
           aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -82,7 +82,7 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="px-6 pb-6 md:hidden">
+        <div className="px-4 pb-5 sm:px-6 md:hidden">
           <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-lg shadow-slate-200/70">
             <Link
               to="/"

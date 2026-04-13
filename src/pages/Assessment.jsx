@@ -268,17 +268,17 @@ const Assessment = () => {
 
   const renderPainScaleStep = () => (
     <div>
-      <div className={`rounded-[2rem] border p-5 sm:p-6 transition-all duration-300 ${activePainScale ? `${activePainScale.border} bg-gradient-to-br ${activePainScale.bg}` : "border-emerald-100 bg-gradient-to-br from-emerald-50 to-white"}`}>
-        <div className="mb-5 flex items-center justify-between gap-4">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
+      <div className={`rounded-[1.5rem] border p-4 sm:rounded-[2rem] sm:p-6 transition-all duration-300 ${activePainScale ? `${activePainScale.border} bg-gradient-to-br ${activePainScale.bg}` : "border-emerald-100 bg-gradient-to-br from-emerald-50 to-white"}`}>
+        <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 sm:text-sm">
             Slide to choose
           </p>
-          <div className={`rounded-full border bg-white px-3 py-1 text-sm font-semibold ${activePainScale ? `${activePainScale.border} ${activePainScale.text}` : "border-emerald-100 text-emerald-700"}`}>
+          <div className={`w-fit rounded-full border bg-white px-3 py-1 text-sm font-semibold ${activePainScale ? `${activePainScale.border} ${activePainScale.text}` : "border-emerald-100 text-emerald-700"}`}>
             {form.painScale || "-"} / 4
           </div>
         </div>
 
-        <div className="mb-6 flex items-center justify-between gap-4 rounded-[1.5rem] bg-white/80 px-5 py-4 shadow-sm">
+        <div className="mb-6 flex flex-col gap-4 rounded-[1.5rem] bg-white/80 px-4 py-4 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:px-5">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
               Current pain level
@@ -295,14 +295,14 @@ const Assessment = () => {
             initial={{ scale: 0.8, rotate: -8, opacity: 0 }}
             animate={{ scale: 1, rotate: 0, opacity: 1 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="text-5xl"
+            className="self-end text-5xl sm:self-auto"
           >
             {activePainScale ? activePainScale.emoji : "🙂"}
           </motion.div>
         </div>
 
         <div className="relative px-1">
-          <div className="mb-4 grid grid-cols-4 gap-2 text-center">
+          <div className="mb-4 hidden grid-cols-4 gap-2 text-center sm:grid">
             {PAIN_SCALE_OPTIONS.map((option) => (
               <div key={option.value} className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500">
                 {option.short}
@@ -318,7 +318,7 @@ const Assessment = () => {
             onChange={(event) => updateField("painScale", Number(event.target.value))}
             className="assessment-range h-3 w-full cursor-pointer appearance-none rounded-full bg-transparent"
           />
-          <div className="pointer-events-none mt-4 grid grid-cols-4 gap-2 text-center">
+          <div className="pointer-events-none mt-4 flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-2 text-center sm:grid sm:grid-cols-4 sm:overflow-visible sm:pb-0">
             {PAIN_SCALE_OPTIONS.map((option) => {
               const active = Number(form.painScale) === option.value;
               return (
@@ -326,17 +326,17 @@ const Assessment = () => {
                   key={option.value}
                   type="button"
                   onClick={() => updateField("painScale", option.value)}
-                  className={`pointer-events-auto rounded-2xl border px-3 py-3 text-left transition ${
+                  className={`pointer-events-auto min-h-[132px] min-w-[170px] snap-start rounded-[1.25rem] border px-3.5 py-3.5 text-left transition sm:min-h-[132px] sm:min-w-0 sm:rounded-2xl sm:px-3 sm:py-3 ${
                     active
                       ? `${option.border} bg-white shadow-[0_14px_30px_rgba(16,185,129,0.12)]`
                       : "border-transparent bg-transparent hover:border-emerald-200 hover:bg-white/70"
                   }`}
                 >
-                  <p className={`text-sm font-bold ${active ? option.text : "text-slate-500"}`}>
+                  <p className={`text-sm font-bold sm:text-sm ${active ? option.text : "text-slate-500"}`}>
                     {option.value}
                   </p>
-                  <p className="mt-1 text-2xl leading-none">{option.emoji}</p>
-                  <p className={`mt-2 text-xs font-semibold leading-5 ${active ? "text-slate-900" : "text-slate-500"}`}>
+                  <p className="mt-1.5 text-[1.65rem] leading-none sm:mt-1 sm:text-2xl">{option.emoji}</p>
+                  <p className={`mt-2 text-[13px] font-semibold leading-5 sm:mt-2 sm:text-[13px] sm:leading-5 ${active ? "text-slate-900" : "text-slate-500"}`}>
                     {option.title}
                   </p>
                 </button>
@@ -434,7 +434,7 @@ const Assessment = () => {
   };
 
   return (
-    <section className="min-h-[calc(100vh-72px)] bg-gradient-to-b from-white via-emerald-50/70 to-white px-4 py-10 sm:px-6 md:py-14">
+    <section className="min-h-[calc(100vh-72px)] overflow-x-hidden bg-gradient-to-b from-white via-emerald-50/70 to-white px-4 py-8 sm:px-6 sm:py-10 md:py-14">
       <div className="mx-auto max-w-5xl">
         <MotionDiv
           initial={{ opacity: 0, y: 18 }}
@@ -445,10 +445,10 @@ const Assessment = () => {
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-emerald-700">
             Start Assessment
           </p>
-          <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 md:text-5xl">
+          <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
             A guided knee check in under 2 minutes
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
+          <p className="mx-auto mt-4 max-w-2xl px-1 text-sm leading-6 text-slate-600 md:text-base">
             We’ll walk through a few simple questions about you and your knee health,
             then prepare the next step based on your answers.
           </p>
@@ -458,9 +458,9 @@ const Assessment = () => {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="rounded-[2rem] border border-emerald-100 bg-white/85 p-4 shadow-[0_20px_50px_rgba(16,24,40,0.05)] backdrop-blur sm:p-5"
+          className="rounded-[1.75rem] border border-emerald-100 bg-white/85 p-3 shadow-[0_20px_50px_rgba(16,24,40,0.05)] backdrop-blur sm:rounded-[2rem] sm:p-5"
         >
-          <div className="relative grid gap-3 md:grid-cols-2">
+          <div className="relative grid gap-3 sm:grid-cols-2 md:gap-4">
             <div className="pointer-events-none absolute left-0 right-0 top-[2.55rem] hidden h-px bg-slate-200 md:block" />
             {TAB_LABELS.map((tab, index) => {
               const isActive = index === currentTabIndex;
@@ -470,7 +470,7 @@ const Assessment = () => {
               return (
                 <div
                   key={tab}
-                  className={`relative rounded-2xl border px-4 py-4 transition ${
+                  className={`relative rounded-2xl border px-4 py-3.5 transition sm:py-4 ${
                     isActive
                       ? "border-emerald-500 bg-emerald-50 shadow-[0_12px_30px_rgba(16,185,129,0.08)]"
                       : isUnlocked
@@ -483,7 +483,7 @@ const Assessment = () => {
                       <p className={`text-xs font-bold uppercase tracking-[0.2em] ${isActive ? "text-emerald-700" : "text-slate-400"}`}>
                         Tab {index + 1}
                       </p>
-                      <p className={`mt-2 text-lg font-semibold ${isActive ? "text-slate-900" : "text-slate-500"}`}>
+                      <p className={`mt-2 text-base font-semibold sm:text-lg ${isActive ? "text-slate-900" : "text-slate-500"}`}>
                         {tab}
                       </p>
                     </div>
@@ -501,7 +501,7 @@ const Assessment = () => {
                       {isCompleted ? <Check className="h-4 w-4" /> : index + 1}
                     </span>
                   </div>
-                  <p className={`mt-3 text-sm ${isActive ? "text-slate-600" : "text-slate-400"}`}>
+                  <p className={`mt-2 text-xs leading-5 sm:mt-3 sm:text-sm ${isActive ? "text-slate-600" : "text-slate-400"}`}>
                     {tabDescription[tab]}
                   </p>
                 </div>
@@ -527,13 +527,13 @@ const Assessment = () => {
           </div>
         </MotionDiv>
 
-        <div className="mt-8">
+        <div className="mt-6 sm:mt-8">
           {isComplete ? (
             <MotionDiv
               initial={{ opacity: 0, y: 28, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="rounded-[2rem] border border-emerald-100 bg-white/95 p-8 text-center shadow-[0_24px_60px_rgba(16,24,40,0.07)] backdrop-blur"
+              className="rounded-[1.75rem] border border-emerald-100 bg-white/95 p-6 text-center shadow-[0_24px_60px_rgba(16,24,40,0.07)] backdrop-blur sm:rounded-[2rem] sm:p-8"
             >
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
                 <Check className="h-6 w-6" />
@@ -541,7 +541,7 @@ const Assessment = () => {
               <p className="mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
                 Assessment Complete
               </p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+              <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
                 Your responses have been captured
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
@@ -558,18 +558,18 @@ const Assessment = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -18, scale: 0.98 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="rounded-[2rem] border border-emerald-100 bg-white/95 p-6 shadow-[0_24px_60px_rgba(16,24,40,0.07)] backdrop-blur md:p-8"
+                  className="rounded-[1.75rem] border border-emerald-100 bg-white/95 p-5 shadow-[0_24px_60px_rgba(16,24,40,0.07)] backdrop-blur sm:rounded-[2rem] sm:p-6 md:p-8"
                 >
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
                         {`About • ${progressLabel}`}
                       </p>
-                      <h2 className="mt-3 text-2xl font-bold leading-tight text-slate-900 md:text-3xl">
+                      <h2 className="mt-3 text-xl font-bold leading-tight text-slate-900 sm:text-2xl md:text-3xl">
                         {currentAboutStep.label}
                       </h2>
                     </div>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 sm:h-12 sm:w-12">
                       <CurrentIcon className="h-5 w-5" />
                     </div>
                   </div>
@@ -582,21 +582,21 @@ const Assessment = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -18, scale: 0.98 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="rounded-[2rem] border border-emerald-100 bg-white/95 p-6 shadow-[0_24px_60px_rgba(16,24,40,0.07)] backdrop-blur md:p-8"
+                  className="rounded-[1.75rem] border border-emerald-100 bg-white/95 p-5 shadow-[0_24px_60px_rgba(16,24,40,0.07)] backdrop-blur sm:rounded-[2rem] sm:p-6 md:p-8"
                 >
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
                         {`Knee Health • ${progressLabel}`}
                       </p>
-                      <h2 className="mt-3 text-2xl font-bold leading-tight text-slate-900 md:text-3xl">
+                      <h2 className="mt-3 text-xl font-bold leading-tight text-slate-900 sm:text-2xl md:text-3xl">
                         {currentKneeStep.label}
                       </h2>
                       {currentKneeStep.helper ? (
                         <p className="mt-3 text-sm text-slate-500">{currentKneeStep.helper}</p>
                       ) : null}
                     </div>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 sm:h-12 sm:w-12">
                       <CurrentIcon className="h-5 w-5" />
                     </div>
                   </div>
@@ -606,13 +606,14 @@ const Assessment = () => {
             </AnimatePresence>
           )}
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="sticky bottom-3 z-10 mt-6 rounded-[1.5rem] border border-emerald-100 bg-white/90 p-3 shadow-[0_16px_35px_rgba(16,24,40,0.06)] backdrop-blur sm:static sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none sm:backdrop-blur-0">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <MotionButton
               type="button"
               onClick={handleBack}
               disabled={currentTabIndex === 0 && aboutIndex === 0 && !isComplete}
               whileTap={{ scale: 0.98 }}
-              className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-300 disabled:cursor-not-allowed disabled:opacity-45"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-300 disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto"
             >
               Back
             </MotionButton>
@@ -622,10 +623,11 @@ const Assessment = () => {
               onClick={handleNext}
               disabled={isNextDisabled || isComplete}
               whileTap={{ scale: 0.98 }}
-              className="rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-45"
+              className="w-full rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto"
             >
               {currentTabIndex === 1 && kneeIndex === KNEE_STEPS.length - 1 ? "Complete Assessment" : "Next"}
             </MotionButton>
+            </div>
           </div>
         </div>
       </div>

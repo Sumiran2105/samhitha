@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { Activity, ClipboardList, FileBarChart2, PlayCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 import jointImage from "../../assets/images/Joint1.png";
 
 const MotionDiv = motion.div;
 const MotionImg = motion.img;
+const MotionLink = motion(Link);
 
 const steps = [
   {
@@ -214,7 +216,8 @@ const HowItWorks = () => {
           transition={{ duration: 0.65, ease: "easeOut" }}
         >
           <div className="flex justify-center relative">
-            <motion.button
+            <MotionLink
+              to="/assessment"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="group relative flex items-center gap-4 overflow-hidden rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 px-6 sm:px-8 py-3 sm:py-4 shadow-[0_0_40px_-10px_rgba(16,185,129,0.8)]"
@@ -253,7 +256,7 @@ const HowItWorks = () => {
               <span className="relative z-10 text-[13px] sm:text-[15px] font-bold uppercase tracking-wider text-white">
                 Take Assessment Now
               </span>
-            </motion.button>
+            </MotionLink>
           </div>
 
           <p className="mt-5 flex items-center justify-center gap-2.5 text-sm font-medium tracking-wide text-gray-500">
