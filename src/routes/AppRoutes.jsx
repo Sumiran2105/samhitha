@@ -3,6 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 
 import Home from "../pages/Home";
 import About from "../pages/About";
+import Assessment from "../pages/Assessment";
 
 const AppRoutes = () => {
   return (
@@ -11,6 +12,7 @@ const AppRoutes = () => {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/assessment" element={<Assessment />} />
         </Route>
       </Routes>
     </BrowserRouter>

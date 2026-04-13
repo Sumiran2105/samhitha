@@ -1,39 +1,45 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Stethoscope, HeartPulse, Activity } from "lucide-react";
 import doctorImage from "../../assets/images/Doctors.jpg";
+
+const MotionDiv = motion.div;
+const MotionH2 = motion.h2;
+const MotionImg = motion.img;
+const MotionH3 = motion.h3;
+const MotionP = motion.p;
 
 const Founder = () => {
   return (
     <section className="bg-[#fafcfa] py-24 lg:py-36 relative overflow-hidden">
       
       {/* Floating Medical Icons Background Effects */}
-      <motion.div
+      <MotionDiv
         className="absolute top-[5%] right-[5%] text-emerald-200/30 pointer-events-none"
         animate={{ y: [0, -40, 0], rotate: [0, 15, -5, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       >
         <Stethoscope size={160} strokeWidth={1} />
-      </motion.div>
+      </MotionDiv>
 
-      <motion.div
+      <MotionDiv
         className="absolute bottom-[10%] left-[2%] text-emerald-300/30 pointer-events-none"
         animate={{ y: [0, 50, 0], rotate: [0, -20, 10, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       >
         <HeartPulse size={180} strokeWidth={1} />
-      </motion.div>
+      </MotionDiv>
 
-      <motion.div
+      <MotionDiv
         className="absolute top-[45%] left-[40%] text-emerald-100/60 pointer-events-none"
         animate={{ x: [0, 30, -10, 0], y: [0, -30, 10, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
       >
         <Activity size={100} strokeWidth={1} />
-      </motion.div>
+      </MotionDiv>
 
       {/* Massive Background Watermark Typography */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
-        <motion.h2 
+        <MotionH2 
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -41,12 +47,12 @@ const Founder = () => {
           className="absolute -top-10 lg:-top-24 left-4 lg:left-6 text-[12vw] leading-none font-black text-emerald-900/[0.04] tracking-tighter whitespace-nowrap select-none pointer-events-none"
         >
           THE FOUNDER.
-        </motion.h2>
+        </MotionH2>
 
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 relative z-10 items-center">
           
           {/* Left: Asymmetrical Image & Badge */}
-          <motion.div 
+          <MotionDiv 
             initial={{ opacity: 0, y: 50, filter: "blur(5px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, amount: 0.2 }}
@@ -55,7 +61,7 @@ const Founder = () => {
           >
             {/* The Petal Shape Frame */}
             <div className="aspect-[3/4] rounded-tr-[6rem] rounded-bl-[6rem] lg:rounded-tr-[10rem] lg:rounded-bl-[10rem] overflow-hidden shadow-2xl relative border-8 border-white group">
-              <motion.img 
+              <MotionImg 
                 whileHover={{ scale: 1.08 }}
                 transition={{ duration: 0.8 }}
                 src={doctorImage} 
@@ -67,40 +73,40 @@ const Founder = () => {
             </div>
 
             {/* Overlapping Floating Quote */}
-            <motion.div 
+            <MotionDiv 
               initial={{ opacity: 0, scale: 0.8, x: -30 }}
               whileInView={{ opacity: 1, scale: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
               className="absolute -bottom-8 -right-4 lg:-right-12 bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-emerald-50 max-w-[280px]"
             >
-              <motion.div 
+              <MotionDiv 
                 animate={{ rotate: [0, 5, -5, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
                 className="text-4xl font-serif text-emerald-300 leading-none absolute -top-4 -left-2"
-              >"</motion.div>
+              >"</MotionDiv>
               <p className="text-sm font-semibold text-gray-700 relative z-10 leading-relaxed">
                 My core focus is on accurate diagnosis and offering precise interventions to improve your long-term function.
               </p>
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
 
           {/* Right: Content & Timeline */}
           <div className="w-full lg:w-7/12 mt-12 lg:mt-0 lg:pt-16">
             {/* Intro */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8 }}
             >
-              <motion.div 
+              <MotionDiv 
                 whileHover={{ scale: 1.05 }}
                 className="text-emerald-600 font-black tracking-[0.2em] uppercase text-[11px] mb-4 bg-emerald-100/50 inline-block px-4 py-1.5 rounded-full border border-emerald-200/50 cursor-default"
               >
                 Lead Surgeon & Visionary
-              </motion.div>
-              <motion.h3 
+              </MotionDiv>
+              <MotionH3 
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -108,8 +114,8 @@ const Founder = () => {
                 className="text-5xl lg:text-7xl font-black text-gray-900 tracking-tight leading-[1.05]"
               >
                 Dr. Rajesh <span className="text-emerald-700 block">Sunkara</span>
-              </motion.h3>
-              <motion.p 
+              </MotionH3>
+              <MotionP 
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -117,8 +123,8 @@ const Founder = () => {
                 className="mt-8 text-xl lg:text-2xl text-gray-500 leading-relaxed font-light"
               >
                 Pioneering joint preservation in Hyderabad with an unwavering commitment to restoring mobility through absolute precision and compassion.
-              </motion.p>
-            </motion.div>
+              </MotionP>
+            </MotionDiv>
 
             {/* Massive Stats Row */}
             <div className="flex flex-wrap gap-12 lg:gap-20 pt-12 mt-12 border-t border-emerald-100">

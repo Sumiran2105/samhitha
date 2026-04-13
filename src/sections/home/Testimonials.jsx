@@ -3,6 +3,8 @@ import placeholderMain from "../../assets/images/Doctors.jpg";
 import placeholderSmall1 from "../../assets/images/DailyImpact.jpeg";
 import placeholderSmall2 from "../../assets/images/Treatment.jpeg";
 
+const MotionDiv = motion.div;
+
 const testimonials = [
   {
     id: 1,
@@ -40,7 +42,7 @@ const Testimonials = () => {
   return (
     <section className="relative overflow-hidden bg-emerald-50 pb-14 pt-12 md:pb-16 md:pt-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <motion.div
+        <MotionDiv
           className="mx-auto max-w-3xl text-center mb-12"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -53,12 +55,12 @@ const Testimonials = () => {
           <h2 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl">
             Our Success Stories
           </h2>
-        </motion.div>
+        </MotionDiv>
 
         {/* Scrollable Container */}
         <div className="flex overflow-x-auto pb-8 gap-4 sm:gap-6 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {testimonials.map((item, idx) => (
-            <motion.div
+            <MotionDiv
               key={item.id}
               className="min-w-[260px] md:min-w-[280px] w-[260px] md:w-[280px] flex-shrink-0 snap-center flex flex-col rounded-2xl overflow-hidden shadow-lg border border-gray-100"
               initial={{ opacity: 0, x: 50 }}
@@ -100,7 +102,7 @@ const Testimonials = () => {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
 

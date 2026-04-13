@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import heroVideo from "../../assets/videos/Hero.mp4";
 import img1 from "../../assets/images/Doctors.jpg";
 import img2 from "../../assets/images/Nuteriation.jpeg";
@@ -129,9 +130,12 @@ const Hero = () => {
           </MotionDiv>
 
           <MotionDiv variants={fadeUp} className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
-            <button className="rounded-xl bg-primary px-6 py-3 text-white font-medium shadow-md transition hover:bg-secondary sm:w-auto">
+            <Link
+              to="/assessment"
+              className="rounded-xl bg-primary px-6 py-3 text-center text-white font-medium shadow-md transition hover:bg-secondary sm:w-auto"
+            >
               Start Free Assessment
-            </button>
+            </Link>
 
             <button className="rounded-xl border border-gray-300 px-6 py-3 text-gray-700 transition hover:border-gray-400 sm:w-auto">
               Learn More

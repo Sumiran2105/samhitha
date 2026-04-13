@@ -1,37 +1,40 @@
 import { motion } from "framer-motion";
 import { Leaf, Activity, Droplet } from "lucide-react";
 
+const MotionDiv = motion.div;
+const MotionP = motion.p;
+
 const FounderMessage = () => {
   return (
     <section className="py-20 md:py-32 bg-white relative overflow-hidden border-t border-gray-100">
       
       {/* Background Floating Icons mapping to (Ayurveda, Physio, Herbal) */}
-      <motion.div
+      <MotionDiv
         className="absolute top-[10%] left-[2%] md:left-[5%] text-emerald-100/50 pointer-events-none"
         animate={{ y: [0, 40, 0], rotate: [0, 20, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       >
         <Leaf size={140} strokeWidth={1} />
-      </motion.div>
+      </MotionDiv>
       
-      <motion.div
+      <MotionDiv
         className="absolute bottom-[10%] right-[3%] md:right-[5%] text-emerald-50/80 pointer-events-none"
         animate={{ y: [0, -50, 0], rotate: [0, -30, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       >
         <Activity size={180} strokeWidth={1} />
-      </motion.div>
+      </MotionDiv>
       
-      <motion.div
+      <MotionDiv
         className="absolute top-[30%] right-[40%] text-emerald-50/60 pointer-events-none hidden md:block"
         animate={{ x: [0, -30, 0], y: [0, 20, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
       >
         <Droplet size={100} strokeWidth={1} />
-      </motion.div>
+      </MotionDiv>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        <motion.div 
+        <MotionDiv 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -46,7 +49,7 @@ const FounderMessage = () => {
           <div className="relative z-10 max-w-4xl mx-auto">
             
             {/* Minimalist Top Tag */}
-            <motion.div 
+            <MotionDiv 
                initial={{ opacity: 0, x: -20 }}
                whileInView={{ opacity: 1, x: 0 }}
                viewport={{ once: true }}
@@ -57,10 +60,10 @@ const FounderMessage = () => {
               <span className="uppercase tracking-[0.3em] text-[10px] md:text-xs font-black text-emerald-700">
                 A Letter from the Founder
               </span>
-            </motion.div>
+            </MotionDiv>
 
             {/* The Message - Standardized to Sans-Serif */}
-            <motion.p 
+            <MotionP 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -68,10 +71,10 @@ const FounderMessage = () => {
               className="text-xl sm:text-2xl md:text-[32px] text-gray-800 leading-relaxed md:leading-[1.65] font-medium tracking-tight"
             >
               "As an experienced Orthopaedic Surgeon, I have witnessed countless patients undergo joint replacements that could have been avoided. I founded Samhitha to prevent knee surgeries by detecting degradation at an early stage and actively curing it through an integrative approach. By combining advanced Physiotherapy, authentic Ayurveda, and targeted Herbal remedies, we empower your body to heal its own foundation."
-            </motion.p>
+            </MotionP>
 
             {/* Elegant Signature Block */}
-            <motion.div 
+            <MotionDiv 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -88,16 +91,16 @@ const FounderMessage = () => {
                 </p>
               </div>
               
-              <motion.div 
+              <MotionDiv 
                 whileHover={{ scale: 1.05 }}
                 className="text-emerald-700 font-bold uppercase tracking-widest text-[10px] md:text-xs bg-emerald-100/50 px-4 py-2 rounded-full border border-emerald-200/60 shadow-sm cursor-default inline-block self-start sm:self-auto"
               >
                 Samhitha Joint Preservation
-              </motion.div>
-            </motion.div>
+              </MotionDiv>
+            </MotionDiv>
 
           </div>
-        </motion.div>
+        </MotionDiv>
       </div>
     </section>
   );

@@ -62,9 +62,12 @@ const Navbar = () => {
             Login
           </button>
 
-          <button className="rounded-xl bg-primary px-4 py-2 text-sm font-medium shadow-lg shadow-teal-500/20 transition hover:bg-secondary">
+          <Link
+            to="/assessment"
+            className="rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white shadow-lg shadow-teal-500/20 transition hover:bg-secondary"
+          >
             Start Assessment
-          </button>
+          </Link>
         </div>
 
         <button
@@ -110,9 +113,13 @@ const Navbar = () => {
                 Login
               </button>
 
-              <button className="w-full rounded-xl bg-primary px-4 py-2 text-sm font-medium transition hover:bg-secondary">
+              <Link
+                to="/assessment"
+                onClick={() => setIsOpen(false)}
+                className="block w-full rounded-xl bg-primary px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-secondary"
+              >
                 Start Assessment
-              </button>
+              </Link>
             </div>
           </div>
         </div>

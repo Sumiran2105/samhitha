@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import DailyImpactImage from "../../assets/images/DailyImpact.jpeg";
 import EarlyImage from "../../assets/images/Early.jpeg";
 import TreatmentImage from "../../assets/images/Treatment.jpeg";
@@ -160,9 +161,12 @@ const Problem = () => {
           className="mt-12 flex justify-center"
           variants={sectionFade}
         >
-          <button className="w-full rounded-xl bg-primary px-6 py-3 text-base font-medium text-white shadow-md transition hover:bg-secondary sm:w-auto">
+          <Link
+            to="/assessment"
+            className="w-full rounded-xl bg-primary px-6 py-3 text-center text-base font-medium text-white shadow-md transition hover:bg-secondary sm:w-auto"
+          >
             Start Free Assessment
-          </button>
+          </Link>
         </MotionDiv>
       </MotionDiv>
 

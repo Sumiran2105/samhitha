@@ -1,5 +1,9 @@
 import { motion } from "framer-motion";
 
+const MotionDiv = motion.div;
+const MotionH1 = motion.h1;
+const MotionP = motion.p;
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -13,12 +17,12 @@ const AboutHero = () => {
   return (
     <section className="relative flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 px-6 py-24 md:py-32 lg:py-40">
       {/* Abstract Background Elements */}
-      <motion.div
+      <MotionDiv
         className="absolute left-[-10%] top-[-20%] h-[500px] w-[500px] rounded-full bg-emerald-500/20 blur-[100px]"
         animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
-      <motion.div
+      <MotionDiv
         className="absolute right-[-10%] bottom-[-20%] h-[400px] w-[400px] rounded-full bg-teal-400/20 blur-[120px]"
         animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.5, 0.2] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
@@ -28,7 +32,7 @@ const AboutHero = () => {
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_20%,transparent_100%)]"></div>
 
       <div className="relative z-10 max-w-4xl text-center">
-        <motion.div
+        <MotionDiv
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -37,26 +41,26 @@ const AboutHero = () => {
             visible: { transition: { staggerChildren: 0.2 } },
           }}
         >
-          <motion.div variants={fadeUp} className="mb-6 flex justify-center">
+          <MotionDiv variants={fadeUp} className="mb-6 flex justify-center">
             <span className="inline-flex items-center rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-xs font-semibold tracking-widest text-emerald-300 uppercase backdrop-blur-md">
               The Samhitha Story
             </span>
-          </motion.div>
+          </MotionDiv>
 
-          <motion.h1
+          <MotionH1
             variants={fadeUp}
             className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
           >
             We believe movement <span className="block text-emerald-400">is life.</span>
-          </motion.h1>
+          </MotionH1>
 
-          <motion.p
+          <MotionP
             variants={fadeUp}
             className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-emerald-50 sm:text-lg md:text-xl"
           >
             Samhitha is India’s premier joint preservation program. We combine advanced physiotherapy, clinical nutrition, and natural healing to save your foundation without surgery.
-          </motion.p>
-        </motion.div>
+          </MotionP>
+        </MotionDiv>
       </div>
 
       {/* Aesthetic divider wave to seamlessly connect to the 'emerald-50' of Problem section */}

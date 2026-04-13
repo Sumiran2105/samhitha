@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Video, Package, UserCheck } from "lucide-react";
 
+const MotionDiv = motion.div;
+const MotionImg = motion.img;
+
 import imgPhysio from "../../assets/images/Physio.jpeg"; // Placeholder for physio.jpeg
 import imgKit from "../../assets/images/Kit.jpeg";   // Placeholder for kit.jpeg
 import imgSupport from "../../assets/images/Support.jpeg";    // Placeholder for support.jpeg
@@ -42,14 +45,14 @@ const WhatYouGet = () => {
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 
         {/* LEFT SIDE (VISUAL BLOCK) */}
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           className="relative"
         >
           <div className="rounded-3xl overflow-hidden border border-emerald-200 shadow-sm relative w-full h-[420px] bg-emerald-50">
             <AnimatePresence mode="wait">
-              <motion.img
+              <MotionImg
                 key={activeIndex}
                 src={features[activeIndex].image}
                 alt={features[activeIndex].title}
@@ -66,7 +69,7 @@ const WhatYouGet = () => {
           <div className="absolute -bottom-6 left-6 bg-white border border-emerald-200 rounded-xl px-5 py-3 shadow-sm text-sm text-gray-700">
             Personalized Recovery System
           </div>
-        </motion.div>
+        </MotionDiv>
 
         {/* RIGHT SIDE (CONTENT) */}
         <div>
