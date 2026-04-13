@@ -37,7 +37,6 @@ const steps = [
 const HowItWorks = () => {
   return (
     <section
-      id="how"
       className="relative overflow-hidden bg-gradient-to-b from-white to-emerald-50 pb-20 pt-14 md:pb-24 md:pt-16"
     >
       <MotionImg

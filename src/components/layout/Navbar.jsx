@@ -52,9 +52,9 @@ const Navbar = () => {
           <Link to="/about" className="transition hover:text-slate-900">
             About
           </Link>
-          <a href="/#how" className="transition hover:text-slate-900">
+          <Link to="/how-it-works" className="transition hover:text-slate-900">
             How it Works
-          </a>
+          </Link>
         </nav>
 
         <div className="hidden items-center gap-4 md:flex">
@@ -100,13 +100,13 @@ const Navbar = () => {
               About
             </Link>
 
-            <a
-              href="/#how"
+            <Link
+              to="/how-it-works"
               onClick={() => setIsOpen(false)}
               className="block text-slate-600 hover:text-slate-900"
             >
               How it Works
-            </a>
+            </Link>
 
             <div className="space-y-3 border-t border-slate-200 pt-4">
               <button className="w-full text-left text-slate-600 hover:text-slate-900">

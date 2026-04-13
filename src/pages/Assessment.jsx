@@ -15,7 +15,7 @@ import {
 const MotionDiv = motion.div;
 const MotionButton = motion.button;
 
-const TAB_LABELS = ["About", "Knee Health"];
+const TAB_LABELS = ["About", "Knee Health", "Body Health"];
 
 const ABOUT_STEPS = [
   { key: "name", label: "Full name", type: "text", placeholder: "Enter your full name", icon: UserRound },
@@ -99,10 +99,67 @@ const KNEE_STEPS = [
   },
   {
     key: "painStartsIn",
-    label: "In how many minutes does it start to pain?",
+    label: "In how many minutes will it start to pain after you begin walking?",
     type: "select",
     options: ["< 15 min", "30 min - 1 hr", "> 1 hr"],
     icon: CalendarDays,
+  },
+  {
+    key: "stairsPainStarts",
+    label: "After climbing, after how many stairs does the pain start?",
+    type: "select",
+    options: ["< 10 steps / stair", "< 5 stairs", "> 5 stairs"],
+    icon: Activity,
+  },
+  {
+    key: "physicalActivityDifficulty",
+    label: "Difficulty in physical activity",
+    type: "multi",
+    options: [
+      "Sitting on ground",
+      "Squatting / Indian toilet",
+      "Sleeping due to pain",
+      "Unable to go to washroom",
+    ],
+    helper: "Choose all that apply to you.",
+    icon: Activity,
+  },
+  {
+    key: "jointSound",
+    label: "Do you hear any sound while moving the joint?",
+    type: "choice",
+    options: ["Yes", "No"],
+    icon: BarChart3,
+  },
+];
+
+const BODY_STEPS = [
+  {
+    key: "bodyMetrics",
+    label: "Tell us your height and weight",
+    type: "metrics",
+    icon: UserRound,
+  },
+  {
+    key: "diabetes",
+    label: "Do you have diabetes?",
+    type: "choice",
+    options: ["Yes", "No"],
+    icon: Activity,
+  },
+  {
+    key: "hypertension",
+    label: "Do you have hypertension (BP)?",
+    type: "choice",
+    options: ["Yes", "No"],
+    icon: Activity,
+  },
+  {
+    key: "heartProblem",
+    label: "Do you have any heart problem?",
+    type: "choice",
+    options: ["Yes", "No"],
+    icon: Activity,
   },
 ];
 
@@ -116,39 +173,51 @@ const INITIAL_FORM = {
   painDuration: "",
   painScale: "",
   painStartsIn: "",
-};
-
-const tabDescription = {
-  About: "Tell us about yourself first.",
-  "Knee Health": "Help us understand your knee condition.",
+  stairsPainStarts: "",
+  physicalActivityDifficulty: [],
+  jointSound: "",
+  height: "",
+  weight: "",
+  diabetes: "",
+  hypertension: "",
+  heartProblem: "",
 };
 
 const Assessment = () => {
   const [aboutIndex, setAboutIndex] = useState(0);
   const [kneeIndex, setKneeIndex] = useState(0);
+  const [bodyIndex, setBodyIndex] = useState(0);
   const [form, setForm] = useState(INITIAL_FORM);
   const [isComplete, setIsComplete] = useState(false);
 
-  const currentTabIndex = aboutIndex < ABOUT_STEPS.length ? 0 : 1;
+  const currentTabIndex = aboutIndex < ABOUT_STEPS.length ? 0 : kneeIndex < KNEE_STEPS.length ? 1 : 2;
   const currentAboutStep = ABOUT_STEPS[aboutIndex];
   const currentKneeStep = KNEE_STEPS[kneeIndex];
-  const totalSteps = ABOUT_STEPS.length + KNEE_STEPS.length;
-  const currentQuestion = currentTabIndex === 0 ? currentAboutStep : currentKneeStep;
+  const currentBodyStep = BODY_STEPS[bodyIndex];
+  const totalSteps = ABOUT_STEPS.length + KNEE_STEPS.length + BODY_STEPS.length;
+  const currentQuestion =
+    currentTabIndex === 0 ? currentAboutStep : currentTabIndex === 1 ? currentKneeStep : currentBodyStep;
   const CurrentIcon = currentQuestion?.icon ?? Activity;
 
   const progressLabel = useMemo(() => {
     if (currentTabIndex === 0) {
       return `Question ${aboutIndex + 1} of ${ABOUT_STEPS.length}`;
     }
-    return `Question ${kneeIndex + 1} of ${KNEE_STEPS.length}`;
-  }, [aboutIndex, currentTabIndex, kneeIndex]);
+    if (currentTabIndex === 1) {
+      return `Question ${kneeIndex + 1} of ${KNEE_STEPS.length}`;
+    }
+    return `Question ${bodyIndex + 1} of ${BODY_STEPS.length}`;
+  }, [aboutIndex, bodyIndex, currentTabIndex, kneeIndex]);
 
   const progressPercent = useMemo(() => {
     if (currentTabIndex === 0) {
       return ((aboutIndex + 1) / totalSteps) * 100;
     }
-    return ((ABOUT_STEPS.length + kneeIndex + 1) / totalSteps) * 100;
-  }, [aboutIndex, currentTabIndex, kneeIndex, totalSteps]);
+    if (currentTabIndex === 1) {
+      return ((ABOUT_STEPS.length + kneeIndex + 1) / totalSteps) * 100;
+    }
+    return ((ABOUT_STEPS.length + KNEE_STEPS.length + bodyIndex + 1) / totalSteps) * 100;
+  }, [aboutIndex, bodyIndex, currentTabIndex, kneeIndex, totalSteps]);
 
   const activePainScale = PAIN_SCALE_OPTIONS.find((option) => option.value === Number(form.painScale));
 
@@ -181,13 +250,32 @@ const Assessment = () => {
       return;
     }
 
+    if (currentTabIndex === 1) {
+      setKneeIndex(KNEE_STEPS.length);
+      return;
+    }
+
+    if (bodyIndex < BODY_STEPS.length - 1) {
+      setBodyIndex((prev) => prev + 1);
+      return;
+    }
+
     setIsComplete(true);
   };
 
   const handleBack = () => {
     if (isComplete) {
       setIsComplete(false);
-      setKneeIndex(KNEE_STEPS.length - 1);
+      setBodyIndex(BODY_STEPS.length - 1);
+      return;
+    }
+
+    if (currentTabIndex === 2) {
+      if (bodyIndex > 0) {
+        setBodyIndex((prev) => prev - 1);
+      } else {
+        setKneeIndex(KNEE_STEPS.length - 1);
+      }
       return;
     }
 
@@ -211,9 +299,18 @@ const Assessment = () => {
       return Array.isArray(value) ? value.length === 0 : !String(value).trim();
     }
 
-    const value = form[currentKneeStep.key];
+    if (currentTabIndex === 1) {
+      const value = form[currentKneeStep.key];
+      return Array.isArray(value) ? value.length === 0 : !String(value).trim();
+    }
+
+    if (currentBodyStep.type === "metrics") {
+      return !String(form.height).trim() || !String(form.weight).trim();
+    }
+
+    const value = form[currentBodyStep.key];
     return Array.isArray(value) ? value.length === 0 : !String(value).trim();
-  }, [currentAboutStep, currentKneeStep, currentTabIndex, form]);
+  }, [currentAboutStep, currentBodyStep, currentKneeStep, currentTabIndex, form]);
 
   const renderAboutStep = () => {
     const step = currentAboutStep;
@@ -377,6 +474,38 @@ const Assessment = () => {
       return renderPainScaleStep();
     }
 
+    if (step.type === "choice") {
+      return (
+        <div className="grid gap-3 sm:grid-cols-2">
+          {step.options.map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => updateField(step.key, option)}
+              className={`rounded-2xl border px-4 py-4 text-left text-sm font-semibold transition ${
+                value === option
+                  ? "border-emerald-500 bg-emerald-50 text-emerald-900 shadow-[0_12px_30px_rgba(16,185,129,0.10)]"
+                  : "border-slate-200 bg-white text-slate-700 hover:border-emerald-300 hover:bg-emerald-50/40"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span>{option}</span>
+                <span
+                  className={`flex h-6 w-6 items-center justify-center rounded-full border ${
+                    value === option
+                      ? "border-emerald-500 bg-emerald-500 text-white"
+                      : "border-slate-300 bg-white text-transparent"
+                  }`}
+                >
+                  <Check className="h-3.5 w-3.5" />
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+      );
+    }
+
     if (step.type === "select") {
       return (
         <div className="relative">
@@ -433,6 +562,70 @@ const Assessment = () => {
     );
   };
 
+  const renderBodyStep = () => {
+    const step = currentBodyStep;
+    const value = form[step.key];
+
+    if (step.type === "metrics") {
+      return (
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="relative">
+            <UserRound className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+            <input
+              type="number"
+              inputMode="numeric"
+              value={form.height}
+              onChange={(event) => updateField("height", event.target.value)}
+              placeholder="Height (cm)"
+              className="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-14 pr-5 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+            />
+          </div>
+          <div className="relative">
+            <Briefcase className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+            <input
+              type="number"
+              inputMode="numeric"
+              value={form.weight}
+              onChange={(event) => updateField("weight", event.target.value)}
+              placeholder="Weight (kg)"
+              className="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-14 pr-5 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+            />
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="grid gap-3 sm:grid-cols-2">
+        {step.options.map((option) => (
+          <button
+            key={option}
+            type="button"
+            onClick={() => updateField(step.key, option)}
+            className={`rounded-2xl border px-4 py-4 text-left text-sm font-semibold transition ${
+              value === option
+                ? "border-emerald-500 bg-emerald-50 text-emerald-900 shadow-[0_12px_30px_rgba(16,185,129,0.10)]"
+                : "border-slate-200 bg-white text-slate-700 hover:border-emerald-300 hover:bg-emerald-50/40"
+            }`}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <span>{option}</span>
+              <span
+                className={`flex h-6 w-6 items-center justify-center rounded-full border ${
+                  value === option
+                    ? "border-emerald-500 bg-emerald-500 text-white"
+                    : "border-slate-300 bg-white text-transparent"
+                }`}
+              >
+                <Check className="h-3.5 w-3.5" />
+              </span>
+            </div>
+          </button>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <section className="min-h-[calc(100vh-72px)] overflow-x-hidden bg-gradient-to-b from-white via-emerald-50/70 to-white px-4 py-8 sm:px-6 sm:py-10 md:py-14">
       <div className="mx-auto max-w-5xl">
@@ -460,8 +653,7 @@ const Assessment = () => {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="rounded-[1.75rem] border border-emerald-100 bg-white/85 p-3 shadow-[0_20px_50px_rgba(16,24,40,0.05)] backdrop-blur sm:rounded-[2rem] sm:p-5"
         >
-          <div className="relative flex gap-3 overflow-x-auto pb-1 sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 md:gap-4">
-            <div className="pointer-events-none absolute left-0 right-0 top-[2.55rem] hidden h-px bg-slate-200 md:block" />
+          <div className="mx-auto grid max-w-5xl grid-cols-3 gap-3 md:gap-4">
             {TAB_LABELS.map((tab, index) => {
               const isActive = index === currentTabIndex;
               const isUnlocked = index <= currentTabIndex;
@@ -470,37 +662,34 @@ const Assessment = () => {
               return (
                 <div
                   key={tab}
-                  className={`relative min-w-[180px] rounded-2xl border px-4 py-3.5 transition sm:min-w-0 sm:py-4 ${
+                  className={`relative min-h-[78px] rounded-[1.35rem] px-4 py-4 transition sm:min-h-[90px] sm:px-5 sm:py-5 ${
                     isActive
-                      ? "border-emerald-500 bg-emerald-50 shadow-[0_12px_30px_rgba(16,185,129,0.08)]"
+                      ? "bg-[#a6bf78] text-white shadow-[0_16px_30px_rgba(166,191,120,0.28)]"
                       : isUnlocked
-                        ? "border-emerald-100 bg-white"
-                        : "border-slate-200 bg-slate-50"
+                        ? "bg-slate-100 text-slate-900"
+                        : "bg-slate-100 text-slate-500"
                   }`}
                 >
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className={`text-base font-semibold sm:text-lg ${isActive ? "text-slate-900" : "text-slate-500"}`}>
+                  <div className="flex h-full items-start justify-between gap-3">
+                    <div className="flex min-w-0 flex-1 items-center">
+                      <p className={`text-lg font-semibold leading-tight sm:text-[1.2rem] lg:text-[1.35rem] ${isActive ? "text-white" : isUnlocked ? "text-slate-900" : "text-slate-500"}`}>
                         {tab}
                       </p>
                     </div>
                     <span
-                      className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold ${
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold sm:h-9 sm:w-9 sm:text-sm ${
                         isActive
-                          ? "bg-emerald-600 text-white"
+                          ? "bg-white/20 text-white"
                           : isCompleted
                             ? "bg-emerald-600 text-white"
                             : isUnlocked
-                              ? "bg-emerald-100 text-emerald-700"
-                              : "bg-slate-200 text-slate-500"
+                              ? "bg-white text-slate-700"
+                              : "bg-white/70 text-slate-500"
                       }`}
                     >
                       {isCompleted ? <Check className="h-4 w-4" /> : index + 1}
                     </span>
                   </div>
-                  <p className={`mt-2 hidden text-xs leading-5 sm:mt-3 sm:block sm:text-sm ${isActive ? "text-slate-600" : "text-slate-400"}`}>
-                    {tabDescription[tab]}
-                  </p>
                 </div>
               );
             })}
@@ -513,9 +702,9 @@ const Assessment = () => {
                 {Math.round(progressPercent)}%
               </p>
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-emerald-100">
+            <div className="mx-auto h-2 w-full max-w-3xl overflow-hidden rounded-full bg-slate-200">
               <MotionDiv
-                className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-700"
+                className="h-full rounded-full bg-gradient-to-r from-[#a6bf78] to-emerald-600"
                 initial={{ width: 0 }}
                 animate={{ width: `${progressPercent}%` }}
                 transition={{ duration: 0.45, ease: "easeOut" }}
@@ -572,7 +761,7 @@ const Assessment = () => {
                   </div>
                   <div className="mt-6">{renderAboutStep()}</div>
                 </MotionDiv>
-              ) : (
+              ) : currentTabIndex === 1 ? (
                 <MotionDiv
                   key={`knee-${kneeIndex}`}
                   initial={{ opacity: 0, y: 28, scale: 0.98 }}
@@ -599,6 +788,30 @@ const Assessment = () => {
                   </div>
                   <div className="mt-6">{renderKneeStep()}</div>
                 </MotionDiv>
+              ) : (
+                <MotionDiv
+                  key={`body-${bodyIndex}`}
+                  initial={{ opacity: 0, y: 28, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -18, scale: 0.98 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="rounded-[1.75rem] border border-emerald-100 bg-white/95 p-5 shadow-[0_24px_60px_rgba(16,24,40,0.07)] backdrop-blur sm:rounded-[2rem] sm:p-6 md:p-8"
+                >
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                        {`Body Health • ${progressLabel}`}
+                      </p>
+                      <h2 className="mt-3 text-xl font-bold leading-tight text-slate-900 sm:text-2xl md:text-3xl">
+                        {currentBodyStep.label}
+                      </h2>
+                    </div>
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 sm:h-12 sm:w-12">
+                      <CurrentIcon className="h-5 w-5" />
+                    </div>
+                  </div>
+                  <div className="mt-6">{renderBodyStep()}</div>
+                </MotionDiv>
               )}
             </AnimatePresence>
           )}
@@ -622,7 +835,7 @@ const Assessment = () => {
               whileTap={{ scale: 0.98 }}
               className="w-full rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto"
             >
-              {currentTabIndex === 1 && kneeIndex === KNEE_STEPS.length - 1 ? "Complete Assessment" : "Next"}
+              {currentTabIndex === 2 && bodyIndex === BODY_STEPS.length - 1 ? "Complete Assessment" : "Next"}
             </MotionButton>
             </div>
           </div>
