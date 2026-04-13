@@ -460,7 +460,7 @@ const Assessment = () => {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="rounded-[1.75rem] border border-emerald-100 bg-white/85 p-3 shadow-[0_20px_50px_rgba(16,24,40,0.05)] backdrop-blur sm:rounded-[2rem] sm:p-5"
         >
-          <div className="relative grid gap-3 sm:grid-cols-2 md:gap-4">
+          <div className="relative flex gap-3 overflow-x-auto pb-1 sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 md:gap-4">
             <div className="pointer-events-none absolute left-0 right-0 top-[2.55rem] hidden h-px bg-slate-200 md:block" />
             {TAB_LABELS.map((tab, index) => {
               const isActive = index === currentTabIndex;
@@ -470,7 +470,7 @@ const Assessment = () => {
               return (
                 <div
                   key={tab}
-                  className={`relative rounded-2xl border px-4 py-3.5 transition sm:py-4 ${
+                  className={`relative min-w-[180px] rounded-2xl border px-4 py-3.5 transition sm:min-w-0 sm:py-4 ${
                     isActive
                       ? "border-emerald-500 bg-emerald-50 shadow-[0_12px_30px_rgba(16,185,129,0.08)]"
                       : isUnlocked
@@ -480,10 +480,7 @@ const Assessment = () => {
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div>
-                      <p className={`text-xs font-bold uppercase tracking-[0.2em] ${isActive ? "text-emerald-700" : "text-slate-400"}`}>
-                        Tab {index + 1}
-                      </p>
-                      <p className={`mt-2 text-base font-semibold sm:text-lg ${isActive ? "text-slate-900" : "text-slate-500"}`}>
+                      <p className={`text-base font-semibold sm:text-lg ${isActive ? "text-slate-900" : "text-slate-500"}`}>
                         {tab}
                       </p>
                     </div>
@@ -501,7 +498,7 @@ const Assessment = () => {
                       {isCompleted ? <Check className="h-4 w-4" /> : index + 1}
                     </span>
                   </div>
-                  <p className={`mt-2 text-xs leading-5 sm:mt-3 sm:text-sm ${isActive ? "text-slate-600" : "text-slate-400"}`}>
+                  <p className={`mt-2 hidden text-xs leading-5 sm:mt-3 sm:block sm:text-sm ${isActive ? "text-slate-600" : "text-slate-400"}`}>
                     {tabDescription[tab]}
                   </p>
                 </div>
