@@ -15,21 +15,21 @@ const fadeUp = {
 
 const AboutHero = () => {
   return (
-    <section className="relative flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 px-6 py-24 md:py-32 lg:py-40">
+    <section className="relative flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 px-4 py-18 sm:px-6 sm:py-24 md:py-32 lg:py-40">
       {/* Abstract Background Elements */}
       <MotionDiv
-        className="absolute left-[-10%] top-[-20%] h-[500px] w-[500px] rounded-full bg-emerald-500/20 blur-[100px]"
+        className="absolute left-[-18%] top-[-12%] h-[260px] w-[260px] rounded-full bg-emerald-500/20 blur-[70px] sm:left-[-10%] sm:top-[-20%] sm:h-[500px] sm:w-[500px] sm:blur-[100px]"
         animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <MotionDiv
-        className="absolute right-[-10%] bottom-[-20%] h-[400px] w-[400px] rounded-full bg-teal-400/20 blur-[120px]"
+        className="absolute bottom-[-12%] right-[-16%] h-[220px] w-[220px] rounded-full bg-teal-400/20 blur-[75px] sm:right-[-10%] sm:bottom-[-20%] sm:h-[400px] sm:w-[400px] sm:blur-[120px]"
         animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.5, 0.2] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_20%,transparent_100%)]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:28px_28px] sm:bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_20%,transparent_100%)]"></div>
 
       <div className="relative z-10 max-w-4xl text-center">
         <MotionDiv
@@ -41,7 +41,7 @@ const AboutHero = () => {
             visible: { transition: { staggerChildren: 0.2 } },
           }}
         >
-          <MotionDiv variants={fadeUp} className="mb-6 flex justify-center">
+          <MotionDiv variants={fadeUp} className="mb-5 flex justify-center sm:mb-6">
             <span className="inline-flex items-center rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-xs font-semibold tracking-widest text-emerald-300 uppercase backdrop-blur-md">
               The Samhitha Story
             </span>
@@ -56,7 +56,7 @@ const AboutHero = () => {
 
           <MotionP
             variants={fadeUp}
-            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-emerald-50 sm:text-lg md:text-xl"
+            className="mx-auto mt-6 max-w-2xl text-base leading-7 text-emerald-50 sm:mt-8 sm:text-lg md:text-xl"
           >
             Samhitha is India’s premier joint preservation program. We combine advanced physiotherapy, clinical nutrition, and natural healing to save your foundation without surgery.
           </MotionP>
@@ -66,7 +66,7 @@ const AboutHero = () => {
       {/* Aesthetic divider wave to seamlessly connect to the 'emerald-50' of Problem section */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
         <svg
-          className="relative block h-[50px] w-full md:h-[80px]"
+          className="relative block h-[34px] w-full sm:h-[50px] md:h-[80px]"
           data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1200 120"

@@ -78,7 +78,7 @@ const HowItWorksPage = () => {
       <Solution />
       <div id="journey-flow">
         
-        <HowItWorks />
+        {/* <HowItWorks /> */}
       </div>
     </>
   );

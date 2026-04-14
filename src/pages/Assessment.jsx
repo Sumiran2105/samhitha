@@ -627,13 +627,24 @@ const Assessment = () => {
   };
 
   return (
-    <section className="min-h-[calc(100vh-72px)] overflow-x-hidden bg-gradient-to-b from-white via-emerald-50/70 to-white px-4 py-8 sm:px-6 sm:py-10 md:py-14">
+    <section className="min-h-[calc(100vh-72px)] overflow-x-hidden bg-gradient-to-b from-white via-emerald-50/70 to-white px-0 py-0 sm:px-6 sm:py-10 md:py-14">
       <div className="mx-auto max-w-5xl">
+        <div className="border-b border-emerald-100 bg-gradient-to-b from-emerald-50 via-white to-white px-5 py-5 sm:hidden">
+          <p className="text-3xl font-black tracking-tight text-white">
+            <span className="text-slate-900">Sam</span>
+            <span className="text-emerald-600">hitha</span>
+            <span className="text-slate-900">.</span>
+          </p>
+          <p className="mt-2 text-sm text-slate-600">
+            This assessment is built to understand your joint health step by step.
+          </p>
+        </div>
+
         <MotionDiv
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-8 text-center"
+          className="mb-0 hidden px-4 pt-8 text-center sm:mb-8 sm:block sm:px-0 sm:pt-0"
         >
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-emerald-700">
             Start Assessment
@@ -651,9 +662,9 @@ const Assessment = () => {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="rounded-[1.75rem] border border-emerald-100 bg-white/85 p-3 shadow-[0_20px_50px_rgba(16,24,40,0.05)] backdrop-blur sm:rounded-[2rem] sm:p-5"
+          className="rounded-none border-y border-emerald-100 bg-white px-4 py-4 shadow-none backdrop-blur sm:rounded-[2rem] sm:border sm:bg-white/85 sm:p-5 sm:shadow-[0_20px_50px_rgba(16,24,40,0.05)]"
         >
-          <div className="mx-auto grid max-w-5xl grid-cols-3 gap-3 md:gap-4">
+          <div className="mx-auto grid max-w-5xl grid-cols-3 gap-2 sm:gap-3 md:gap-4">
             {TAB_LABELS.map((tab, index) => {
               const isActive = index === currentTabIndex;
               const isUnlocked = index <= currentTabIndex;
@@ -662,7 +673,7 @@ const Assessment = () => {
               return (
                 <div
                   key={tab}
-                  className={`relative min-h-[78px] rounded-[1.35rem] px-4 py-4 transition sm:min-h-[90px] sm:px-5 sm:py-5 ${
+                  className={`relative min-h-[58px] min-w-0 rounded-[0.9rem] px-3 py-3 transition sm:min-h-[86px] sm:rounded-[1.35rem] sm:px-5 sm:py-5 ${
                     isActive
                       ? "bg-[#a6bf78] text-white shadow-[0_16px_30px_rgba(166,191,120,0.28)]"
                       : isUnlocked
@@ -672,12 +683,12 @@ const Assessment = () => {
                 >
                   <div className="flex h-full items-start justify-between gap-3">
                     <div className="flex min-w-0 flex-1 items-center">
-                      <p className={`text-lg font-semibold leading-tight sm:text-[1.2rem] lg:text-[1.35rem] ${isActive ? "text-white" : isUnlocked ? "text-slate-900" : "text-slate-500"}`}>
+                      <p className={`text-[13px] font-semibold leading-tight sm:text-lg lg:text-[1.35rem] ${isActive ? "text-white" : isUnlocked ? "text-slate-900" : "text-slate-500"}`}>
                         {tab}
                       </p>
                     </div>
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold sm:h-9 sm:w-9 sm:text-sm ${
+                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px] font-bold sm:h-9 sm:w-9 sm:text-sm ${
                         isActive
                           ? "bg-white/20 text-white"
                           : isCompleted
@@ -713,7 +724,7 @@ const Assessment = () => {
           </div>
         </MotionDiv>
 
-        <div className="mt-6 sm:mt-8">
+        <div className="mt-0 px-4 py-5 sm:mt-8 sm:px-0 sm:py-0">
           {isComplete ? (
             <MotionDiv
               initial={{ opacity: 0, y: 28, scale: 0.98 }}
@@ -744,22 +755,22 @@ const Assessment = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -18, scale: 0.98 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="rounded-[1.75rem] border border-emerald-100 bg-white/95 p-5 shadow-[0_24px_60px_rgba(16,24,40,0.07)] backdrop-blur sm:rounded-[2rem] sm:p-6 md:p-8"
+                  className="rounded-[1.25rem] border-0 bg-white p-0 shadow-none backdrop-blur sm:rounded-[2rem] sm:border sm:border-emerald-100 sm:bg-white/95 sm:p-6 sm:shadow-[0_24px_60px_rgba(16,24,40,0.07)] md:p-8"
                 >
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex min-h-[112px] flex-col gap-3 sm:min-h-0 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 sm:text-sm">
                         {`About • ${progressLabel}`}
                       </p>
-                      <h2 className="mt-3 text-xl font-bold leading-tight text-slate-900 sm:text-2xl md:text-3xl">
+                      <h2 className="mt-3 max-w-[10ch] text-[1.85rem] font-bold leading-tight text-slate-900 sm:max-w-none sm:text-2xl md:text-3xl">
                         {currentAboutStep.label}
                       </h2>
                     </div>
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 sm:h-12 sm:w-12">
+                    <div className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 sm:flex sm:h-12 sm:w-12">
                       <CurrentIcon className="h-5 w-5" />
                     </div>
                   </div>
-                  <div className="mt-6">{renderAboutStep()}</div>
+                  <div className="mt-7 sm:mt-6">{renderAboutStep()}</div>
                 </MotionDiv>
               ) : currentTabIndex === 1 ? (
                 <MotionDiv
@@ -768,25 +779,25 @@ const Assessment = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -18, scale: 0.98 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="rounded-[1.75rem] border border-emerald-100 bg-white/95 p-5 shadow-[0_24px_60px_rgba(16,24,40,0.07)] backdrop-blur sm:rounded-[2rem] sm:p-6 md:p-8"
+                  className="rounded-[1.25rem] border-0 bg-white p-0 shadow-none backdrop-blur sm:rounded-[2rem] sm:border sm:border-emerald-100 sm:bg-white/95 sm:p-6 sm:shadow-[0_24px_60px_rgba(16,24,40,0.07)] md:p-8"
                 >
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 sm:text-sm">
                         {`Knee Health • ${progressLabel}`}
                       </p>
-                      <h2 className="mt-3 text-xl font-bold leading-tight text-slate-900 sm:text-2xl md:text-3xl">
+                      <h2 className="mt-3 text-[1.7rem] font-bold leading-tight text-slate-900 sm:text-2xl md:text-3xl">
                         {currentKneeStep.label}
                       </h2>
                       {currentKneeStep.helper ? (
                         <p className="mt-3 text-sm text-slate-500">{currentKneeStep.helper}</p>
                       ) : null}
                     </div>
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 sm:h-12 sm:w-12">
+                    <div className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 sm:flex sm:h-12 sm:w-12">
                       <CurrentIcon className="h-5 w-5" />
                     </div>
                   </div>
-                  <div className="mt-6">{renderKneeStep()}</div>
+                  <div className="mt-8 sm:mt-6">{renderKneeStep()}</div>
                 </MotionDiv>
               ) : (
                 <MotionDiv
@@ -795,48 +806,48 @@ const Assessment = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -18, scale: 0.98 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="rounded-[1.75rem] border border-emerald-100 bg-white/95 p-5 shadow-[0_24px_60px_rgba(16,24,40,0.07)] backdrop-blur sm:rounded-[2rem] sm:p-6 md:p-8"
+                  className="rounded-[1.25rem] border-0 bg-white p-0 shadow-none backdrop-blur sm:rounded-[2rem] sm:border sm:border-emerald-100 sm:bg-white/95 sm:p-6 sm:shadow-[0_24px_60px_rgba(16,24,40,0.07)] md:p-8"
                 >
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 sm:text-sm">
                         {`Body Health • ${progressLabel}`}
                       </p>
-                      <h2 className="mt-3 text-xl font-bold leading-tight text-slate-900 sm:text-2xl md:text-3xl">
+                      <h2 className="mt-3 text-[1.7rem] font-bold leading-tight text-slate-900 sm:text-2xl md:text-3xl">
                         {currentBodyStep.label}
                       </h2>
                     </div>
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 sm:h-12 sm:w-12">
+                    <div className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 sm:flex sm:h-12 sm:w-12">
                       <CurrentIcon className="h-5 w-5" />
                     </div>
                   </div>
-                  <div className="mt-6">{renderBodyStep()}</div>
+                  <div className="mt-8 sm:mt-6">{renderBodyStep()}</div>
                 </MotionDiv>
               )}
             </AnimatePresence>
           )}
 
-          <div className="sticky bottom-3 z-10 mt-6 rounded-[1.5rem] border border-emerald-100 bg-white/90 p-3 shadow-[0_16px_35px_rgba(16,24,40,0.06)] backdrop-blur sm:static sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none sm:backdrop-blur-0">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <MotionButton
-              type="button"
-              onClick={handleBack}
-              disabled={currentTabIndex === 0 && aboutIndex === 0 && !isComplete}
-              whileTap={{ scale: 0.98 }}
-              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-300 disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto"
-            >
-              Back
-            </MotionButton>
+          <div className="sticky bottom-0 z-10 mt-6 border-t border-emerald-100 bg-white/96 px-0 py-4 backdrop-blur sm:static sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none sm:backdrop-blur-0">
+            <div className="flex items-center gap-3 sm:justify-between">
+              <MotionButton
+                type="button"
+                onClick={handleBack}
+                disabled={currentTabIndex === 0 && aboutIndex === 0 && !isComplete}
+                whileTap={{ scale: 0.98 }}
+              className="w-1/2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-300 disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto sm:min-w-[120px] sm:rounded-2xl"
+              >
+                Back
+              </MotionButton>
 
             <MotionButton
-              type="button"
-              onClick={handleNext}
-              disabled={isNextDisabled || isComplete}
-              whileTap={{ scale: 0.98 }}
-              className="w-full rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto"
-            >
-              {currentTabIndex === 2 && bodyIndex === BODY_STEPS.length - 1 ? "Complete Assessment" : "Next"}
-            </MotionButton>
+                type="button"
+                onClick={handleNext}
+                disabled={isNextDisabled || isComplete}
+                whileTap={{ scale: 0.98 }}
+              className="w-1/2 rounded-xl bg-[#7c7778] px-6 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-none transition hover:bg-[#6f6a6b] disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto sm:min-w-[160px] sm:rounded-2xl sm:bg-primary sm:normal-case sm:tracking-normal sm:shadow-lg sm:shadow-emerald-200 sm:hover:bg-secondary"
+              >
+                {currentTabIndex === 2 && bodyIndex === BODY_STEPS.length - 1 ? "Complete Assessment" : "Next"}
+              </MotionButton>
             </div>
           </div>
         </div>

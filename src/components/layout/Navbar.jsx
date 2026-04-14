@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../../assets/images/Logo2.png";
 
 const MenuIcon = () => (
   <svg
@@ -40,20 +41,28 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-lg">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link to="/" className="text-xl font-semibold tracking-wide text-slate-900">
-          <span>Sam</span>
-          <span className="text-primary">hitha</span>
+        <Link to="/" className="flex items-center gap-3 text-xl font-semibold tracking-wide text-slate-900">
+          <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-emerald-50 ring-1 ring-emerald-100">
+            <img src={logo} alt="Samhitha logo" className="h-full w-full object-cover" />
+          </span>
+          <span>
+            <span>Sam</span>
+            <span className="text-primary">hitha</span>
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm text-slate-600 md:flex">
           <Link to="/" className="transition hover:text-slate-900">
             Home
           </Link>
+          <Link to="/how-it-works" className="transition hover:text-slate-900">
+            How it Works
+          </Link>
           <Link to="/about" className="transition hover:text-slate-900">
             About
           </Link>
-          <Link to="/how-it-works" className="transition hover:text-slate-900">
-            How it Works
+          <Link to="/contact" className="transition hover:text-slate-900">
+            Contact
           </Link>
         </nav>
 
@@ -93,6 +102,14 @@ const Navbar = () => {
             </Link>
 
             <Link
+              to="/how-it-works"
+              onClick={() => setIsOpen(false)}
+              className="block text-slate-600 hover:text-slate-900"
+            >
+              How it Works
+            </Link>
+
+            <Link
               to="/about"
               onClick={() => setIsOpen(false)}
               className="block text-slate-600 hover:text-slate-900"
@@ -101,11 +118,11 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to="/how-it-works"
+              to="/contact"
               onClick={() => setIsOpen(false)}
               className="block text-slate-600 hover:text-slate-900"
             >
-              How it Works
+              Contact
             </Link>
 
             <div className="space-y-3 border-t border-slate-200 pt-4">

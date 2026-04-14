@@ -27,17 +27,9 @@ const solutions = [
     alt: "Clinical nutrition consultation",
     offsetClasses: "lg:mt-32",
   },
+
   {
     step: "03",
-    eyebrow: "Restore Movement",
-    title: "PHYSIOTHERAPY",
-    desc: "Guided exercises to restore strength, mobility, and stability in your knee.",
-    image: physioImage,
-    alt: "Physiotherapy support session",
-    offsetClasses: "lg:-mt-8",
-  },
-  {
-    step: "04",
     eyebrow: "Monitor Progress",
     title: "EXPERT GUIDANCE",
     desc: "Doctor-led care to monitor progress and prevent the need for surgery.",
@@ -45,6 +37,16 @@ const solutions = [
     alt: "Doctor guidance session",
     offsetClasses: "lg:mt-20",
   },
+  {
+    step: "04",
+    eyebrow: "Restore Movement",
+    title: "PHYSIOTHERAPY",
+    desc: "Guided exercises to restore strength, mobility, and stability in your knee.",
+    image: physioImage,
+    alt: "Physiotherapy support session",
+    offsetClasses: "lg:-mt-8",
+  },
+  
 ];
 
 const Solution = () => {
@@ -125,7 +127,7 @@ const Solution = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.08 }}
-          className="mb-8 flex items-center justify-between gap-4"
+          className="mb-16 flex items-center justify-between gap-4 sm:mb-20"
         >
           <div className="hidden h-px flex-1 bg-gradient-to-r from-emerald-300/40 to-transparent lg:block" />
           <p className="rounded-full border border-emerald-100 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700 shadow-sm backdrop-blur">
@@ -135,7 +137,7 @@ const Solution = () => {
         </MotionDiv>
 
         {/* Staggered White Card Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="mt-4 grid grid-cols-1 gap-6 sm:mt-6 sm:grid-cols-2 lg:mt-10 lg:grid-cols-4 lg:gap-8">
           {solutions.map((item, index) => (
             <motion.div
               key={index}
