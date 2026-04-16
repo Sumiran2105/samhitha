@@ -14,20 +14,25 @@ const iconButtonClass =
 
 const Footer = () => {
   return (
-    <footer id="site-footer" className="bg-[linear-gradient(180deg,#0f3d35_0%,#0d312c_100%)] px-4 pb-6 pt-8 text-emerald-50 sm:px-6 md:pb-10 md:pt-12">
-      <div className="mx-auto max-w-7xl rounded-[1.75rem] border border-emerald-300/10 bg-[linear-gradient(180deg,rgba(17,75,65,0.96)_0%,rgba(10,49,44,0.98)_100%)] px-5 py-7 shadow-[0_30px_80px_rgba(4,20,18,0.35)] sm:rounded-[2rem] sm:px-8 md:px-10 md:py-10">
-        <div className="flex flex-col items-center gap-7 text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">
-          <Link to="/" className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-emerald-300/12 ring-1 ring-emerald-200/20 sm:h-11 sm:w-11">
-              <img src={logo} alt="Samhitha logo" className="h-full w-full object-cover" />
+    <footer id="site-footer" className="bg-[linear-gradient(180deg,#0f3d35_0%,#0d312c_100%)] px-4 pb-8 pt-10 text-emerald-50 sm:px-6 md:pb-12 md:pt-16">
+      <div className="mx-auto max-w-7xl rounded-[1.75rem] border border-emerald-300/10 bg-[linear-gradient(180deg,rgba(17,75,65,0.96)_0%,rgba(10,49,44,0.98)_100%)] px-6 py-10 shadow-[0_30px_80px_rgba(4,20,18,0.35)] sm:rounded-[2.5rem] sm:px-10 md:px-12 md:py-14">
+        <div className="flex flex-col items-center gap-10 text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">
+          <Link to="/" className="group flex items-center justify-center gap-3 lg:justify-start">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-emerald-300/12 ring-1 ring-emerald-200/20 sm:h-11 sm:w-11 transition-all duration-300 group-hover:ring-emerald-300/40">
+              <img src={logo} alt="Samhitha logo" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
             </span>
-            <span className="text-xl font-semibold tracking-wide text-white sm:text-2xl">
-              <span>Sam</span>
-              <span className="text-emerald-300">hitha</span>
-            </span>
+            <div className="flex flex-col items-start justify-center pt-0.5 leading-none">
+              <span className="text-xl font-semibold tracking-wide text-white sm:text-2xl">
+                <span>Sam</span>
+                <span className="text-emerald-300">hitha</span>
+              </span>
+              <span className="mt-1 text-[9px] font-black uppercase tracking-[0.22em] text-emerald-100/60 sm:text-[10px]">
+                Save the joint
+              </span>
+            </div>
           </Link>
 
-          <nav className="grid w-full max-w-sm grid-cols-2 gap-x-6 gap-y-3 text-sm font-medium sm:max-w-none sm:grid-cols-4 sm:gap-x-8 lg:w-auto">
+          <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm font-medium sm:gap-x-12 lg:w-auto lg:gap-x-10">
             {footerLinks.map((link) => (
               <Link
                 key={link.label}

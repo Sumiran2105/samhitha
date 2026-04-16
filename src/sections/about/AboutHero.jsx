@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const MotionDiv = motion.div;
 const MotionH1 = motion.h1;
@@ -14,8 +15,18 @@ const fadeUp = {
 };
 
 const AboutHero = () => {
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
+  const textOpacity = useTransform(scrollYProgress, [0.5, 1], [1, 0]);
+
   return (
-    <section className="relative flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 px-4 py-18 sm:px-6 sm:py-24 md:py-32 lg:py-40">
+    <section ref={heroRef} className="relative flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 px-4 py-16 pt-24 sm:px-6 sm:py-24 md:py-32 lg:py-40">
       {/* Abstract Background Elements */}
       <MotionDiv
         className="absolute left-[-18%] top-[-12%] h-[260px] w-[260px] rounded-full bg-emerald-500/20 blur-[70px] sm:left-[-10%] sm:top-[-20%] sm:h-[500px] sm:w-[500px] sm:blur-[100px]"
@@ -29,9 +40,12 @@ const AboutHero = () => {
       />
 
       {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:28px_28px] sm:bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_20%,transparent_100%)]"></div>
+      <MotionDiv 
+        style={{ y: bgY }}
+        className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:28px_28px] sm:bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_20%,transparent_100%)]"
+      ></MotionDiv>
 
-      <div className="relative z-10 max-w-4xl text-center">
+      <MotionDiv style={{ y: textY, opacity: textOpacity }} className="relative z-10 max-w-4xl text-center">
         <MotionDiv
           initial="hidden"
           whileInView="visible"
@@ -61,7 +75,7 @@ const AboutHero = () => {
             Samhitha is India’s premier joint preservation program. We combine advanced physiotherapy, clinical nutrition, and natural healing to save your foundation without surgery.
           </MotionP>
         </MotionDiv>
-      </div>
+      </MotionDiv>
 
       {/* Aesthetic divider wave to seamlessly connect to the 'emerald-50' of Problem section */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">

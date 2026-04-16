@@ -55,12 +55,12 @@ const WhySamhithaExists = () => {
             transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
             className="flex h-full flex-col rounded-[2rem] border border-emerald-100 bg-white/80 p-6 shadow-[0_20px_55px_rgba(15,23,42,0.05)] backdrop-blur sm:p-8"
           >
-            <div className="flex items-center gap-4">
-              <div className="h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-600" />
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <div className="hidden h-1 w-8 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-600 sm:block sm:w-16" />
+              <p className="text-[10px] font-black uppercase tracking-[0.1em] text-emerald-700 sm:text-xs sm:tracking-[0.2em]">
                 The problem we are solving
               </p>
-              <div className="h-1 w-16 rounded-full bg-gradient-to-l from-emerald-400 to-emerald-100" />
+              <div className="hidden h-1 w-8 rounded-full bg-gradient-to-l from-emerald-400 to-emerald-100 sm:block sm:w-16" />
             </div>
 
             <div className="mt-8 grid gap-4">
@@ -104,12 +104,12 @@ const WhySamhithaExists = () => {
             className="flex h-full flex-col justify-between rounded-[2rem] border border-emerald-200/70 bg-gradient-to-br from-emerald-700 via-emerald-800 to-[#0f5d4e] p-6 text-white shadow-[0_28px_65px_rgba(16,94,78,0.22)] sm:p-8"
           >
             <div className="w-full">
-              <div className="mx-auto flex max-w-[34rem] items-center justify-between gap-4">
-                <div className="h-1 flex-1 rounded-full bg-gradient-to-r from-emerald-200 to-emerald-50/20" />
-                <p className="shrink-0 text-xs font-black uppercase tracking-[0.2em] text-emerald-100/85">
+              <div className="mx-auto flex max-w-[34rem] items-center justify-between gap-2 sm:gap-4">
+                <div className="hidden h-1 flex-1 rounded-full bg-gradient-to-r from-emerald-200 to-emerald-50/20 sm:block" />
+                <p className="shrink-0 text-center text-[10px] font-black uppercase tracking-[0.1em] text-emerald-100/85 sm:text-xs sm:tracking-[0.2em]">
                   What Samhitha changes
                 </p>
-                <div className="h-1 flex-1 rounded-full bg-gradient-to-l from-emerald-200 to-emerald-50/20" />
+                <div className="hidden h-1 flex-1 rounded-full bg-gradient-to-l from-emerald-200 to-emerald-50/20 sm:block" />
               </div>
               <div className="mx-auto mt-8 ">
                 <h3 className=" text-[1.95rem] font-black leading-[1.02] tracking-tight text-white sm:text-[2.35rem]">

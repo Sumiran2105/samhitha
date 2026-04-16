@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Stethoscope, HeartPulse, Activity } from "lucide-react";
 import doctorImage from "../../assets/images/Doctors.jpg";
 
@@ -9,8 +10,19 @@ const MotionH3 = motion.h3;
 const MotionP = motion.p;
 
 const Founder = () => {
+  const containerRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const textX = useTransform(scrollYProgress, [0, 1], ["-5%", "10%"]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
+  const quoteY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+
   return (
-    <section className="relative overflow-hidden bg-[#fafcfa] py-16 sm:py-20 lg:py-28">
+    <section ref={containerRef} className="relative overflow-hidden bg-[#fafcfa] py-16 sm:py-20 lg:py-28">
       
       {/* Floating Medical Icons Background Effects */}
       <MotionDiv
@@ -40,8 +52,9 @@ const Founder = () => {
       {/* Massive Background Watermark Typography */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <MotionH2 
-          initial={{ opacity: 0, x: -100 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          style={{ x: textX }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.5, ease: "easeOut" }}
           className="pointer-events-none absolute left-4 top-0 select-none whitespace-nowrap text-[14vw] font-black leading-none tracking-tighter text-emerald-900/[0.04] sm:-top-6 sm:text-[12vw] lg:-top-24 lg:left-6"
@@ -53,8 +66,9 @@ const Founder = () => {
           
           {/* Left: Asymmetrical Image & Badge */}
           <MotionDiv 
-            initial={{ opacity: 0, y: 50, filter: "blur(5px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            style={{ y: imageY }}
+            initial={{ opacity: 0, filter: "blur(5px)" }}
+            whileInView={{ opacity: 1, filter: "blur(0px)" }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1, ease: "easeOut" }}
             className="relative w-full lg:w-5/12"
@@ -74,8 +88,9 @@ const Founder = () => {
 
             {/* Overlapping Floating Quote */}
             <MotionDiv 
-              initial={{ opacity: 0, scale: 0.8, x: -30 }}
-              whileInView={{ opacity: 1, scale: 1, x: 0 }}
+              style={{ y: quoteY }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
               className="absolute -bottom-6 left-4 right-4 rounded-2xl border border-emerald-50 bg-white/95 p-4 shadow-[0_20px_50px_rgba(0,0,0,0.15)] backdrop-blur-md sm:left-auto sm:right-0 sm:max-w-[280px] sm:p-6 lg:-bottom-8 lg:-right-12"

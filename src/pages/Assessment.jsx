@@ -87,7 +87,7 @@ const KNEE_STEPS = [
     key: "painDuration",
     label: "How long have you had the pain?",
     type: "select",
-    options: ["< 1 month", "1 month to 1 year", "> 1 year"],
+    options: ["Less than 1 month", "1 month to 1 year", "More than 1 year"],
     icon: CalendarDays,
   },
   {
@@ -99,16 +99,16 @@ const KNEE_STEPS = [
   },
   {
     key: "painStartsIn",
-    label: "In how many minutes will it start to pain after you begin walking?",
+    label: "How many minutes after you start walking does the pain begin?",
     type: "select",
-    options: ["< 15 min", "30 min - 1 hr", "> 1 hr"],
+    options: ["0-15 min", "15-30 min", "30-60 min", "more than 1 hr"],
     icon: CalendarDays,
   },
   {
     key: "stairsPainStarts",
-    label: "After climbing, after how many stairs does the pain start?",
+    label: "After how many stairs does the pain start?",
     type: "select",
-    options: ["< 10 steps / stair", "< 5 stairs", "> 5 stairs"],
+    options: ["less than 10 steps", "1-2 stairs", "more than 2 stairs"],
     icon: Activity,
   },
   {
@@ -320,29 +320,28 @@ const Assessment = () => {
       return (
         <div className="grid gap-3 sm:grid-cols-3">
           {step.options.map((option) => (
-            <button
+            <MotionButton
+              whileTap={{ scale: 0.98 }}
               key={option}
               type="button"
               onClick={() => updateField(step.key, option)}
-              className={`rounded-2xl border px-4 py-4 text-left text-sm font-semibold transition ${
-                value === option
-                  ? "border-emerald-500 bg-emerald-50 text-emerald-900 shadow-[0_12px_30px_rgba(16,185,129,0.10)]"
-                  : "border-slate-200 bg-white text-slate-700 hover:border-emerald-300 hover:bg-emerald-50/40"
-              }`}
+              className={`rounded-2xl border px-4 py-4 text-left text-sm font-semibold transition ${value === option
+                ? "border-emerald-500 bg-emerald-50 text-emerald-900 shadow-[0_12px_30px_rgba(16,185,129,0.10)]"
+                : "border-slate-200 bg-white text-slate-700 hover:border-emerald-300 hover:bg-emerald-50/40"
+                }`}
             >
               <div className="flex items-center justify-between gap-3">
                 <span>{option}</span>
                 <span
-                  className={`flex h-6 w-6 items-center justify-center rounded-full border ${
-                    value === option
-                      ? "border-emerald-500 bg-emerald-500 text-white"
-                      : "border-slate-300 bg-white text-transparent"
-                  }`}
+                  className={`flex h-6 w-6 items-center justify-center rounded-full border ${value === option
+                    ? "border-emerald-500 bg-emerald-500 text-white"
+                    : "border-slate-300 bg-white text-transparent"
+                    }`}
                 >
                   <Check className="h-3.5 w-3.5" />
                 </span>
               </div>
-            </button>
+            </MotionButton>
           ))}
         </div>
       );
@@ -356,6 +355,11 @@ const Assessment = () => {
           inputMode={step.type === "number" ? "numeric" : undefined}
           value={value}
           onChange={(event) => updateField(step.key, event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && !isNextDisabled) {
+              handleNext();
+            }
+          }}
           placeholder={step.placeholder}
           className="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-14 pr-5 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
         />
@@ -415,7 +419,7 @@ const Assessment = () => {
             onChange={(event) => updateField("painScale", Number(event.target.value))}
             className="assessment-range h-3 w-full cursor-pointer appearance-none rounded-full bg-transparent"
           />
-          <div className="pointer-events-none mt-4 flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-2 text-center sm:grid sm:grid-cols-4 sm:overflow-visible sm:pb-0">
+          <div className="pointer-events-none mt-4 grid grid-cols-4 gap-1.5 sm:gap-2.5">
             {PAIN_SCALE_OPTIONS.map((option) => {
               const active = Number(form.painScale) === option.value;
               return (
@@ -423,19 +427,21 @@ const Assessment = () => {
                   key={option.value}
                   type="button"
                   onClick={() => updateField("painScale", option.value)}
-                  className={`pointer-events-auto min-h-[132px] min-w-[170px] snap-start rounded-[1.25rem] border px-3.5 py-3.5 text-left transition sm:min-h-[132px] sm:min-w-0 sm:rounded-2xl sm:px-3 sm:py-3 ${
-                    active
-                      ? `${option.border} bg-white shadow-[0_14px_30px_rgba(16,185,129,0.12)]`
-                      : "border-transparent bg-transparent hover:border-emerald-200 hover:bg-white/70"
-                  }`}
+                  className={`pointer-events-auto flex flex-col rounded-xl border p-2 text-center transition sm:min-h-[140px] sm:rounded-2xl sm:p-3.5 ${active
+                    ? `${option.border} bg-white shadow-[0_14px_30px_rgba(16,185,129,0.12)]`
+                    : "border-transparent bg-transparent hover:border-emerald-200 hover:bg-white/70"
+                    }`}
                 >
-                  <p className={`text-sm font-bold sm:text-sm ${active ? option.text : "text-slate-500"}`}>
+                  <p className={`w-full text-left hidden text-sm font-bold sm:block ${active ? option.text : "text-slate-500"}`}>
                     {option.value}
                   </p>
-                  <p className="mt-1.5 text-[1.65rem] leading-none sm:mt-1 sm:text-2xl">{option.emoji}</p>
-                  <p className={`mt-2 text-[13px] font-semibold leading-5 sm:mt-2 sm:text-[13px] sm:leading-5 ${active ? "text-slate-900" : "text-slate-500"}`}>
-                    {option.title}
-                  </p>
+                  <div className="flex w-full flex-1 flex-col items-center justify-center mt-1 sm:mt-0">
+                    <p className="text-[1.65rem] leading-none sm:text-[2.2rem]">{option.emoji}</p>
+                    <p className={`mt-2 text-[10px] font-semibold leading-tight sm:mt-3 sm:text-[13px] sm:leading-snug ${active ? "text-slate-900" : "text-slate-500"}`}>
+                      <span className="block sm:hidden">{option.short}</span>
+                      <span className="hidden sm:block">{option.title}</span>
+                    </p>
+                  </div>
                 </button>
               );
             })}
@@ -478,29 +484,28 @@ const Assessment = () => {
       return (
         <div className="grid gap-3 sm:grid-cols-2">
           {step.options.map((option) => (
-            <button
+            <MotionButton
+              whileTap={{ scale: 0.98 }}
               key={option}
               type="button"
               onClick={() => updateField(step.key, option)}
-              className={`rounded-2xl border px-4 py-4 text-left text-sm font-semibold transition ${
-                value === option
-                  ? "border-emerald-500 bg-emerald-50 text-emerald-900 shadow-[0_12px_30px_rgba(16,185,129,0.10)]"
-                  : "border-slate-200 bg-white text-slate-700 hover:border-emerald-300 hover:bg-emerald-50/40"
-              }`}
+              className={`rounded-2xl border px-4 py-4 text-left text-sm font-semibold transition ${value === option
+                ? "border-emerald-500 bg-emerald-50 text-emerald-900 shadow-[0_12px_30px_rgba(16,185,129,0.10)]"
+                : "border-slate-200 bg-white text-slate-700 hover:border-emerald-300 hover:bg-emerald-50/40"
+                }`}
             >
               <div className="flex items-center justify-between gap-3">
                 <span>{option}</span>
                 <span
-                  className={`flex h-6 w-6 items-center justify-center rounded-full border ${
-                    value === option
-                      ? "border-emerald-500 bg-emerald-500 text-white"
-                      : "border-slate-300 bg-white text-transparent"
-                  }`}
+                  className={`flex h-6 w-6 items-center justify-center rounded-full border ${value === option
+                    ? "border-emerald-500 bg-emerald-500 text-white"
+                    : "border-slate-300 bg-white text-transparent"
+                    }`}
                 >
                   <Check className="h-3.5 w-3.5" />
                 </span>
               </div>
-            </button>
+            </MotionButton>
           ))}
         </div>
       );
@@ -533,29 +538,28 @@ const Assessment = () => {
           const active = value.includes(option);
 
           return (
-            <button
+            <MotionButton
+              whileTap={{ scale: 0.98 }}
               key={option}
               type="button"
               onClick={() => toggleMulti(step.key, option)}
-              className={`rounded-2xl border px-5 py-4 text-left transition ${
-                active
-                  ? "border-emerald-500 bg-emerald-50 shadow-[0_12px_30px_rgba(16,185,129,0.10)]"
-                  : "border-slate-200 bg-white hover:border-emerald-300 hover:bg-emerald-50/40"
-              }`}
+              className={`rounded-2xl border px-5 py-4 text-left transition ${active
+                ? "border-emerald-500 bg-emerald-50 shadow-[0_12px_30px_rgba(16,185,129,0.10)]"
+                : "border-slate-200 bg-white hover:border-emerald-300 hover:bg-emerald-50/40"
+                }`}
             >
               <div className="flex items-center justify-between gap-4">
                 <span className={`text-sm font-semibold ${active ? "text-emerald-900" : "text-slate-700"}`}>
                   {option}
                 </span>
                 <span
-                  className={`flex h-6 w-6 items-center justify-center rounded-md border transition ${
-                    active ? "border-emerald-500 bg-emerald-500 text-white" : "border-slate-300 bg-white text-transparent"
-                  }`}
+                  className={`flex h-6 w-6 items-center justify-center rounded-md border transition ${active ? "border-emerald-500 bg-emerald-500 text-white" : "border-slate-300 bg-white text-transparent"
+                    }`}
                 >
                   <Check className="h-3.5 w-3.5" />
                 </span>
               </div>
-            </button>
+            </MotionButton>
           );
         })}
       </div>
@@ -567,30 +571,78 @@ const Assessment = () => {
     const value = form[step.key];
 
     if (step.type === "metrics") {
+      let bmiData = null;
+      if (form.height && form.weight) {
+        const h = Number(form.height) / 100;
+        const w = Number(form.weight);
+        if (h > 0 && w > 0) {
+          const bmi = w / (h * h);
+          let category = "";
+          let colorClass = "";
+          if (bmi < 18.5) { category = "Underweight"; colorClass = "text-blue-700 bg-blue-50 border-blue-200"; }
+          else if (bmi >= 18.5 && bmi < 25) { category = "Normal weight"; colorClass = "text-emerald-700 bg-emerald-50 border-emerald-200"; }
+          else if (bmi >= 25 && bmi < 30) { category = "Overweight"; colorClass = "text-yellow-700 bg-yellow-50 border-yellow-200"; }
+          else { category = "Obese"; colorClass = "text-red-700 bg-red-50 border-red-200"; }
+          bmiData = { value: bmi.toFixed(1), category, colorClass };
+        }
+      }
+
       return (
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="relative">
-            <UserRound className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
-            <input
-              type="number"
-              inputMode="numeric"
-              value={form.height}
-              onChange={(event) => updateField("height", event.target.value)}
-              placeholder="Height (cm)"
-              className="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-14 pr-5 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
-            />
+        <div className="flex flex-col gap-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="relative">
+              <UserRound className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+              <input
+                type="number"
+                inputMode="numeric"
+                value={form.height}
+                onChange={(event) => updateField("height", event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !isNextDisabled) {
+                    handleNext();
+                  }
+                }}
+                placeholder="Height (cm)"
+                className="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-14 pr-5 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              />
+            </div>
+            <div className="relative">
+              <Briefcase className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+              <input
+                type="number"
+                inputMode="numeric"
+                value={form.weight}
+                onChange={(event) => updateField("weight", event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !isNextDisabled) {
+                    handleNext();
+                  }
+                }}
+                placeholder="Weight (kg)"
+                className="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-14 pr-5 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              />
+            </div>
           </div>
-          <div className="relative">
-            <Briefcase className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
-            <input
-              type="number"
-              inputMode="numeric"
-              value={form.weight}
-              onChange={(event) => updateField("weight", event.target.value)}
-              placeholder="Weight (kg)"
-              className="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-14 pr-5 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
-            />
-          </div>
+          <AnimatePresence>
+            {bmiData && (
+              <MotionDiv
+                initial={{ opacity: 0, height: 0, y: -10 }}
+                animate={{ opacity: 1, height: "auto", y: 0 }}
+                exit={{ opacity: 0, height: 0, y: -10 }}
+                className="overflow-hidden"
+              >
+                <div className={`mt-2 flex items-center justify-between rounded-2xl border px-5 py-4 ${bmiData.colorClass}`}>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.15em] opacity-80">Calculated BMI</p>
+                    <p className="mt-1 text-lg font-black tracking-tight">{bmiData.category}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-3xl font-black">{bmiData.value}</p>
+                  </div>
+                </div>
+              </MotionDiv>
+            )}
+          </AnimatePresence>
         </div>
       );
     }
@@ -598,29 +650,28 @@ const Assessment = () => {
     return (
       <div className="grid gap-3 sm:grid-cols-2">
         {step.options.map((option) => (
-          <button
+          <MotionButton
+            whileTap={{ scale: 0.98 }}
             key={option}
             type="button"
             onClick={() => updateField(step.key, option)}
-            className={`rounded-2xl border px-4 py-4 text-left text-sm font-semibold transition ${
-              value === option
-                ? "border-emerald-500 bg-emerald-50 text-emerald-900 shadow-[0_12px_30px_rgba(16,185,129,0.10)]"
-                : "border-slate-200 bg-white text-slate-700 hover:border-emerald-300 hover:bg-emerald-50/40"
-            }`}
+            className={`rounded-2xl border px-4 py-4 text-left text-sm font-semibold transition ${value === option
+              ? "border-emerald-500 bg-emerald-50 text-emerald-900 shadow-[0_12px_30px_rgba(16,185,129,0.10)]"
+              : "border-slate-200 bg-white text-slate-700 hover:border-emerald-300 hover:bg-emerald-50/40"
+              }`}
           >
             <div className="flex items-center justify-between gap-3">
               <span>{option}</span>
               <span
-                className={`flex h-6 w-6 items-center justify-center rounded-full border ${
-                  value === option
-                    ? "border-emerald-500 bg-emerald-500 text-white"
-                    : "border-slate-300 bg-white text-transparent"
-                }`}
+                className={`flex h-6 w-6 items-center justify-center rounded-full border ${value === option
+                  ? "border-emerald-500 bg-emerald-500 text-white"
+                  : "border-slate-300 bg-white text-transparent"
+                  }`}
               >
                 <Check className="h-3.5 w-3.5" />
               </span>
             </div>
-          </button>
+          </MotionButton>
         ))}
       </div>
     );
@@ -673,13 +724,12 @@ const Assessment = () => {
               return (
                 <div
                   key={tab}
-                  className={`relative min-h-[58px] min-w-0 rounded-[0.9rem] px-3 py-3 transition sm:min-h-[86px] sm:rounded-[1.35rem] sm:px-5 sm:py-5 ${
-                    isActive
-                      ? "bg-[#a6bf78] text-white shadow-[0_16px_30px_rgba(166,191,120,0.28)]"
-                      : isUnlocked
-                        ? "bg-slate-100 text-slate-900"
-                        : "bg-slate-100 text-slate-500"
-                  }`}
+                  className={`relative min-h-[58px] min-w-0 rounded-[0.9rem] px-3 py-3 transition sm:min-h-[86px] sm:rounded-[1.35rem] sm:px-5 sm:py-5 ${isActive
+                    ? "bg-[#a6bf78] text-white shadow-[0_16px_30px_rgba(166,191,120,0.28)]"
+                    : isUnlocked
+                      ? "bg-slate-100 text-slate-900"
+                      : "bg-slate-100 text-slate-500"
+                    }`}
                 >
                   <div className="flex h-full items-start justify-between gap-3">
                     <div className="flex min-w-0 flex-1 items-center">
@@ -688,15 +738,14 @@ const Assessment = () => {
                       </p>
                     </div>
                     <span
-                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px] font-bold sm:h-9 sm:w-9 sm:text-sm ${
-                        isActive
-                          ? "bg-white/20 text-white"
-                          : isCompleted
-                            ? "bg-emerald-600 text-white"
-                            : isUnlocked
-                              ? "bg-white text-slate-700"
-                              : "bg-white/70 text-slate-500"
-                      }`}
+                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px] font-bold sm:h-9 sm:w-9 sm:text-sm ${isActive
+                        ? "bg-white/20 text-white"
+                        : isCompleted
+                          ? "bg-emerald-600 text-white"
+                          : isUnlocked
+                            ? "bg-white text-slate-700"
+                            : "bg-white/70 text-slate-500"
+                        }`}
                     >
                       {isCompleted ? <Check className="h-4 w-4" /> : index + 1}
                     </span>
@@ -834,17 +883,17 @@ const Assessment = () => {
                 onClick={handleBack}
                 disabled={currentTabIndex === 0 && aboutIndex === 0 && !isComplete}
                 whileTap={{ scale: 0.98 }}
-              className="w-1/2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-300 disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto sm:min-w-[120px] sm:rounded-2xl"
+                className="w-1/2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-300 disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto sm:min-w-[120px] sm:rounded-2xl"
               >
                 Back
               </MotionButton>
 
-            <MotionButton
+              <MotionButton
                 type="button"
                 onClick={handleNext}
                 disabled={isNextDisabled || isComplete}
                 whileTap={{ scale: 0.98 }}
-              className="w-1/2 rounded-xl bg-[#7c7778] px-6 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-none transition hover:bg-[#6f6a6b] disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto sm:min-w-[160px] sm:rounded-2xl sm:bg-primary sm:normal-case sm:tracking-normal sm:shadow-lg sm:shadow-emerald-200 sm:hover:bg-secondary"
+                className="w-1/2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-none transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto sm:min-w-[160px] sm:rounded-2xl sm:shadow-lg sm:shadow-emerald-200"
               >
                 {currentTabIndex === 2 && bodyIndex === BODY_STEPS.length - 1 ? "Complete Assessment" : "Next"}
               </MotionButton>
