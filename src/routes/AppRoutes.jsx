@@ -7,6 +7,7 @@ import About from "../pages/About";
 import Assessment from "../pages/Assessment";
 import Contact from "../pages/Contact";
 import HowItWorksPage from "../pages/HowItWorksPage";
+import AdminDashboard from "../pages/AdminDashboard";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -23,6 +24,10 @@ const AppRoutes = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+        {/* Admin — full screen, no site nav/footer */}
+        <Route path="/admin" element={<AdminDashboard />} />
+
+        {/* Public site */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

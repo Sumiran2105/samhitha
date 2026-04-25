@@ -260,6 +260,19 @@ const Assessment = () => {
       return;
     }
 
+    // Save submission to localStorage (replace with API call when backend is ready)
+    const submission = {
+      id: `sub_${Date.now()}`,
+      submittedAt: new Date().toISOString(),
+      ...form,
+    };
+    try {
+      const existing = JSON.parse(localStorage.getItem("samhitha_assessments") || "[]");
+      existing.unshift(submission);
+      localStorage.setItem("samhitha_assessments", JSON.stringify(existing));
+    } catch (e) {
+      console.error("Failed to save assessment:", e);
+    }
     setIsComplete(true);
   };
 
